@@ -72,8 +72,8 @@ body {
 
 .sidebar {
   width: 280px;
-  height: 50%;
-
+  height: auto;
+  padding-bottom: 20px;
   background: #003459;
 
   position: fixed;
