@@ -1,0 +1,353 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #424242;
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  color: white;
+}
+
+.topbar {
+  width: 100%;
+  height: 70px;
+
+  background: #003459;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: 1000;
+}
+
+.topbar h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.menu-btn {
+  position: absolute;
+  left: 20px;
+
+  width: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-btn span {
+  width: 38px;
+  height: 5px;
+  border-radius: 10px;
+  background: white;
+
+  transform-origin: center;
+  transition:
+    width 0.35s ease,
+    height 0.35s ease,
+    border-radius 0.35s ease,
+    transform 0.35s ease;
+    
+}
+
+.menu-btn.active span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: scale(1.1);
+  transform: rotate(135deg);
+}
+
+.sidebar {
+  width: 280px;
+  height: auto;
+  padding-bottom: 20px;
+  background: #003459;
+
+  position: fixed;
+  left: -280px;
+  top: 0;
+
+  padding-top: 70px;
+
+  transition: 0.3s ease;
+
+  z-index: 999;
+
+  border-radius: 20px;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-link {
+  width: 95%;
+  background-color: #cceaff;
+  border-radius: 30px;
+
+  padding: 18px 25px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+  margin-left: 5px;
+  text-decoration: none;
+  color: black;
+
+  transition: 0.3s;
+}
+
+.side-link:hover {
+  background: #1c5e8c;
+  transform: translateY(-5px);
+}
+
+.side-link img {
+  width: 30px;
+  height: 30px;
+}
+
+.overlay {
+  position: fixed;
+
+  width: 100%;
+  height: 100vh;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.3s;
+
+  z-index: 998;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.container {
+  padding-top: 110px;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container h2 { /* Status da Locomotiva */
+  font-size: 2rem;
+  text-align: center;
+
+  color: rgb(255, 255, 255);
+
+  max-width: 900px;
+
+  margin-bottom: 60px;
+}
+
+.container h3 { /* Locomotiva - Curitiba Express */
+  font-size: 1.25rem;
+  text-align: center;
+
+  color: rgb(255, 255, 255);
+
+  max-width: 900px;
+
+  margin-bottom: 60px;
+}
+
+.container a { /* Motor Diesel */
+  color: #003459;
+  font-size: 1.25rem;
+}
+
+.container h4 { /* Ótima */
+  font-size: 2rem;
+}
+.cards {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+
+  flex-wrap: wrap;
+
+  padding: 0 20px;
+}
+
+.card {
+  position: relative;
+
+  width: 250px;
+  height: 100px;
+
+  background: #91caf2;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  text-decoration: none;
+  transition: 0.3s ease;
+  margin: 10px;
+}
+
+.gerenciar {
+  width: 800px;
+  height: 80px;
+  background-color: #4d8fbf;
+}
+.status-bom {
+    color: #4ca626; /* Verde */
+}
+.status-alerta {
+    color: #ff751f; /* Amarelo / Laranja */
+}
+.status-ruim {
+    color: #ff3131; /* Vermelho */
+}
+
+@keyframes alerta {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow:
+      0 0 5px #ff0000,
+      0 0 10px #ff0000,
+      0 0 20px #ff0000,
+      0 0 30px #ff0000;
+  }
+
+  50% {
+    transform: scale(1.25);
+    text-shadow:
+      0 0 10px #ff0000,
+      0 0 20px #ff0000,
+      0 0 40px #ff0000,
+      0 0 60px #ff0000;
+  }
+}
+
+.card:hover {
+  background: #229df5;
+}
+
+.card img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+}
+
+.card span {
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.logo-area {
+  margin-top: 70px;
+  margin-bottom: 40px;
+}
+
+.logo-area img {
+  width: 560px;
+  max-width: 90%;
+}
+
+
+@media (max-width: 900px) {
+  .container h2 {
+    font-size: 3rem;
+    padding: 0 20px;
+  }
+
+  .card {
+    width: 180px;
+    height: 180px;
+  }
+
+  .card img {
+    width: 90px;
+    height: 90px;
+  }
+
+  .card span {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar {
+    height: 60px;
+  }
+
+  .topbar h1 {
+    font-size: 1.5rem;
+  }
+
+  .container {
+    padding-top: 90px;
+  }
+
+  .container h2 {
+    font-size: 2.2rem;
+    text-align: left;
+
+    width: 95%;
+
+    margin-bottom: 40px;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+
+    width: 95%;
+  }
+
+  .card {
+    width: 100%;
+    height: 150px;
+  }
+
+  .card img {
+    width: 75px;
+    height: 75px;
+  }
+
+  .card span {
+    font-size: 1rem;
+  }
+}

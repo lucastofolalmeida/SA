@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FerroHub</title>
+
+    <link rel="stylesheet" href="../styles/sensores.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <h1>FerroHub</h1>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <nav>
+        <a href="locomotivas.html" class="side-link">
+          <img src="../assets/locomotiva.png" alt="" />
+          <span>Locomotivas</span>
+        </a>
+
+        <a href="relatorios.html" class="side-link">
+          <img src="../assets/relatorio.webp" alt="" />
+          <span>Relatórios</span>
+        </a>
+
+        <a href="sensores.html" class="side-link">
+          <img src="../assets/sensores.webp" alt="" />
+          <span>Sensores</span>
+        </a>
+
+        <a href="usuarios.html" class="side-link">
+          <img src="../assets/usuarios.png" alt="" />
+          <span>Usuários</span>
+        </a>
+      </nav>
+    </aside>
+<main>
+    <div class="container">
+      <h1 class="titulo">Sensores</h1>
+
+      <input
+        class="input-trem"
+        type="text"
+        placeholder="Insira o nome do trem"
+      />
+
+      <div class="painel">
+        <div class="topo">
+          <div class="botao-add">+</div>
+          <button class="btn-sensor">Adicionar sensor</button>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="acoes">
+              <span class="delete">🗑</span>
+              <span class="edit">✏</span>
+            </div>
+            <h3>Sensor 10</h3>
+            <strong>Indutivo</strong>
+            <p>ultima leitura: 11:21</p>
+          </div>
+
+          <div class="card">
+            <div class="acoes">
+              <span class="delete">🗑</span>
+              <span class="edit">✏</span>
+            </div>
+            <h3>Sensor 01</h3>
+            <strong>Indutivo</strong>
+            <p>ultima leitura: 11:25</p>
+          </div>
+
+          <div class="card">
+            <div class="acoes">
+              <span class="delete">🗑</span>
+              <span class="edit">✏</span>
+            </div>
+            <h3>Sensor 75</h3>
+            <strong>Indutivo</strong>
+            <p>ultima leitura: 11:38</p>
+          </div>
+
+          <div class="card">
+            <div class="acoes">
+              <span class="delete">🗑</span>
+              <span class="edit">✏</span>
+            </div>
+            <h3>Sensor 77</h3>
+            <strong>Indutivo</strong>
+            <p>ultima leitura: 9:30</p>
+          </div>
+
+          <div class="card">
+            <div class="acoes">
+              <span class="delete">🗑</span>
+              <span class="edit">✏</span>
+            </div>
+            <h3>Sensor 67</h3>
+            <strong>Indutivo</strong>
+            <p>ultima leitura: 9:35</p>
+          </div>
+
+          <div class="card">
+            <div class="acoes">
+              <span class="delete">🗑</span>
+              <span class="edit">✏</span>
+            </div>
+            <h3>Sensor 69</h3>
+            <strong>Indutivo</strong>
+            <p>ultima leitura: 11:29</p>
+          </div>
+
+          <div class="card">
+            <div class="acoes">
+              <span class="delete">🗑</span>
+              <span class="edit">✏</span>
+            </div>
+            <h3>Sensor 92</h3>
+            <strong>Indutivo</strong>
+            <p>ultima leitura: 8:58</p>
+          </div>
+
+          <div class="card">
+            <div class="acoes">
+              <span class="delete">🗑</span>
+              <span class="edit">✏</span>
+            </div>
+            <h3>Sensor 32</h3>
+            <strong>Indutivo</strong>
+            <p>ultima leitura: 6:27</p>
+          </div>
+
+          <div class="card">
+            <div class="acoes">
+              <span class="delete">🗑</span>
+              <span class="edit">✏</span>
+            </div>
+            <h3>Sensor 64</h3>
+            <strong>Indutivo</strong>
+            <p>ultima leitura: 9:9</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</main>
+    <script>
+      const menuBtn = document.getElementById("menuBtn");
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+
+      menuBtn.addEventListener("click", () => {
+        menuBtn.classList.toggle("active");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      });
+
+      overlay.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        menuBtn.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
