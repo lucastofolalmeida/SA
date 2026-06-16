@@ -11,20 +11,17 @@ body {
   color: white;
 }
 
+/* --- TOPBAR --- */
 .topbar {
   width: 100%;
   height: 70px;
-
   background: #003459;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   position: fixed;
   top: 0;
   left: 0;
-
   z-index: 1000;
 }
 
@@ -37,12 +34,10 @@ body {
 .menu-btn {
   position: absolute;
   left: 20px;
-
   width: 40px;
   background: transparent;
   border: none;
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -53,41 +48,31 @@ body {
   height: 5px;
   border-radius: 10px;
   background: white;
-
   transform-origin: center;
-  transition:
-    width 0.35s ease,
-    height 0.35s ease,
-    border-radius 0.35s ease,
-    transform 0.35s ease;
-    
+  transition: all 0.35s ease;
 }
 
-.menu-btn.active span {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  transform: scale(1.1);
-  transform: rotate(135deg);
+.menu-btn.active span:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
+}
+.menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn.active span:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
 }
 
+/* --- SIDEBAR --- */
 .sidebar {
   width: 280px;
-  height: auto;
-  padding-bottom: 20px;
+  height: 100vh;
   background: #003459;
-
   position: fixed;
   left: -280px;
   top: 0;
-
-  padding-top: 70px;
-
+  padding-top: 80px;
   transition: 0.3s ease;
-
   z-index: 999;
-
-  border-radius: 20px;
 }
 
 .sidebar.active {
@@ -97,52 +82,45 @@ body {
 .sidebar nav {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .side-link {
-  width: 95%;
+  width: 90%;
   background-color: #cceaff;
   border-radius: 30px;
-
-  padding: 18px 25px;
-
+  padding: 15px 25px;
   display: flex;
   align-items: center;
   gap: 15px;
-  margin-top: 25px;
-  margin-left: 5px;
+  margin-top: 20px;
   text-decoration: none;
   color: black;
-
   transition: 0.3s;
 }
 
 .side-link:hover {
   background: #1c5e8c;
-  transform: translateY(-5px);
+  transform: translateY(-3px);
+  color: white;
 }
 
 .side-link img {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 }
 
+/* --- OVERLAY --- */
 .overlay {
   position: fixed;
-
   width: 100%;
   height: 100vh;
-
-  background: rgba(0, 0, 0, 0.4);
-
+  background: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
-
   opacity: 0;
   visibility: hidden;
-
   transition: 0.3s;
-
   z-index: 998;
 }
 
@@ -151,203 +129,138 @@ body {
   visibility: visible;
 }
 
+/* --- CONTAINER PRINCIPAL --- */
 .container {
   padding-top: 110px;
+  padding-bottom: 40px;
   width: 100%;
-
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-.container h2 { /* Status da Locomotiva */
+.container h2 {
   font-size: 2rem;
   text-align: center;
-
-  color: rgb(255, 255, 255);
-
-  max-width: 900px;
-
-  margin-bottom: 60px;
+  margin-bottom: 10px;
 }
 
-.container h3 { /* Locomotiva - Curitiba Express */
-  font-size: 1.25rem;
+.container h3 {
+  font-size: 1.3rem;
   text-align: center;
-
-  color: rgb(255, 255, 255);
-
-  max-width: 900px;
-
-  margin-bottom: 60px;
+  margin-bottom: 40px;
+  font-weight: normal;
+  opacity: 0.9;
 }
 
-.container a { /* Motor Diesel */
-  color: #003459;
-  font-size: 1.25rem;
-}
-
-.container h4 { /* Ótima */
-  font-size: 2rem;
-}
-.cards {
+/* --- GRID DE CARDS RESPONSIVO --- */
+.cards-grid {
   width: 100%;
-
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-
-  flex-wrap: wrap;
-
-  padding: 0 20px;
+  display: grid;
+  /* Cria colunas automáticas de no mínimo 250px até preencher o espaço */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
 .card {
-  position: relative;
-
-  width: 250px;
-  height: 100px;
-
   background: #91caf2;
-  border-radius: 20px;
-
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  gap: 10px;
-
-  text-decoration: none;
+  gap: 8px;
+  padding: 20px;
+  min-height: 120px;
   transition: 0.3s ease;
-  margin: 10px;
-}
-
-.gerenciar {
-  width: 800px;
-  height: 80px;
-  background-color: #4d8fbf;
-}
-.status-bom {
-    color: #4ca626; /* Verde */
-}
-.status-alerta {
-    color: #ff751f; /* Amarelo / Laranja */
-}
-.status-ruim {
-    color: #ff3131; /* Vermelho */
-}
-
-@keyframes alerta {
-  0%, 100% {
-    transform: scale(1);
-    text-shadow:
-      0 0 5px #ff0000,
-      0 0 10px #ff0000,
-      0 0 20px #ff0000,
-      0 0 30px #ff0000;
-  }
-
-  50% {
-    transform: scale(1.25);
-    text-shadow:
-      0 0 10px #ff0000,
-      0 0 20px #ff0000,
-      0 0 40px #ff0000,
-      0 0 60px #ff0000;
-  }
+  text-align: center;
 }
 
 .card:hover {
   background: #229df5;
+  transform: translateY(-3px);
 }
 
-.card img {
-  width: 110px;
-  height: 110px;
-  object-fit: contain;
+.card a {
+  color: #003459;
+  font-size: 1rem;
+  text-decoration: none;
 }
 
-.card span {
-  font-size: 2rem;
-  font-weight: bold;
+.card h4 {
+  font-size: 1.4rem;
+  word-break: break-word; /* Evita que textos grandes quebrem o layout */
+}
+
+/* --- BOTÃO GERENCIAR ALERTAS --- */
+.gerenciar {
+  width: 100%;
+  max-width: 100%;
+  height: 60px;
+  background-color: #4d8fbf;
+  cursor: pointer;
+}
+
+.gerenciar a {
   color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
-.logo-area {
-  margin-top: 70px;
-  margin-bottom: 40px;
+/* --- CORES DE STATUS --- */
+.status-bom { color: #4ca626; text-shadow: 0 0 1px rgba(0,0,0,0.2); }
+.status-alerta { color: #ff751f; }
+.status-ruim { color: #ff3131; animation: alerta 1.5s infinite alternate; }
+
+@keyframes alerta {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
 }
 
-.logo-area img {
-  width: 560px;
-  max-width: 90%;
-}
-
-
-@media (max-width: 900px) {
-  .container h2 {
-    font-size: 3rem;
-    padding: 0 20px;
-  }
-
-  .card {
-    width: 180px;
-    height: 180px;
-  }
-
-  .card img {
-    width: 90px;
-    height: 90px;
-  }
-
-  .card span {
-    font-size: 1.7rem;
-  }
-}
-
+/* --- MEDIA QUERIES (AJUSTES PARA CELULAR) --- */
 @media (max-width: 600px) {
-  .topbar {
-    height: 60px;
-  }
-
   .topbar h1 {
     font-size: 1.5rem;
   }
-
+  
   .container {
     padding-top: 90px;
   }
 
   .container h2 {
-    font-size: 2.2rem;
-    text-align: left;
-
-    width: 95%;
-
-    margin-bottom: 40px;
+    font-size: 1.6rem;
   }
 
-  .cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+  .container h3 {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+  }
 
-    gap: 18px;
-
-    width: 95%;
+  .cards-grid {
+    /* Em telas muito pequenas, divide em 2 colunas perfeitamente */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
   }
 
   .card {
-    width: 100%;
-    height: 150px;
+    padding: 12px;
+    min-height: 100px;
   }
 
-  .card img {
-    width: 75px;
-    height: 75px;
+  .card a {
+    font-size: 0.85rem;
   }
 
-  .card span {
+  .card h4 {
+    font-size: 1.1rem;
+  }
+
+  .gerenciar a {
     font-size: 1rem;
   }
 }

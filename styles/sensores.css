@@ -17,8 +17,6 @@ body{
     min-height:100vh;
 }
 
-/* ================= HEADER ================= */
-
 .navbar{
     background:var(--azul-escuro);
     height:70px;
@@ -42,8 +40,6 @@ body{
     font-weight:bold;
 }
 
-/* ================= CONTAINER ================= */
-
 .container{
     width:100%;
     max-width:1200px;
@@ -54,8 +50,6 @@ body{
     align-items:center;
 }
 
-/* ================= TÍTULO ================= */
-
 .titulo{
     color:#9ED0FF;
     font-size:55px;
@@ -63,8 +57,6 @@ body{
     margin-bottom:25px;
     text-align:center;
 }
-
-/* ================= INPUT ================= */
 
 .input-trem{
     width:320px;
@@ -79,8 +71,6 @@ body{
     margin-bottom:35px;
 }
 
-/* ================= PAINEL ================= */
-
 .painel{
     width:100%;
     max-width:760px;
@@ -90,8 +80,6 @@ body{
     padding:25px;
     overflow-y:auto;
 }
-
-/* Barra branca */
 
 .painel::-webkit-scrollbar{
     width:10px;
@@ -111,8 +99,6 @@ body{
     scrollbar-width:thin;
     scrollbar-color:var(--azul-escuro) white;
 }
-
-/* ================= TOPO ================= */
 
 .topo{
     display:flex;
@@ -146,16 +132,12 @@ body{
     transform:scale(1.03);
 }
 
-/* ================= GRID ================= */
-
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
     gap:25px;
     justify-items:center;
 }
-
-/* ================= CARDS ================= */
 
 .card{
     width:100%;
@@ -183,8 +165,6 @@ body{
     font-size:12px;
 }
 
-/* ================= ÍCONES ================= */
-
 .acoes{
     position:absolute;
     top:8px;
@@ -200,8 +180,6 @@ body{
     font-size:18px;
 }
 
-/* ================= TABLET ================= */
-
 @media (max-width:900px){
 
     .painel{
@@ -214,8 +192,6 @@ body{
     }
 
 }
-
-/* ================= CELULAR ================= */
 
 @media (max-width:600px){
 
@@ -406,4 +382,107 @@ body{
 .overlay.active {
   opacity: 1;
   visibility: visible;
+}
+
+.modal{
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:rgba(0,0,0,.45);
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:5000;
+}
+
+.modal.ativo{
+    display:flex;
+}
+
+.modal-content{
+
+    width:420px;
+    max-width:90%;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.modal-content h2{
+
+    color:#003459;
+    text-align:center;
+}
+
+.modal-content label{
+
+    font-weight:bold;
+}
+
+.modal-content input{
+
+    height:40px;
+
+    border:2px solid #69A7DA;
+
+    border-radius:10px;
+
+    padding-left:10px;
+
+    font-size:16px;
+}
+
+.botoes-modal{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+    margin-top:15px;
+}
+
+.botoes-modal button{
+
+    width:110px;
+
+    height:40px;
+
+    border:none;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+}
+
+#cancelar{
+
+    background:#999;
+
+    color:white;
+}
+
+#salvar{
+
+    background:#003459;
+
+    color:white;
 }

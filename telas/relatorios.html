@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Locomotivas</title>
+    <title>Relatórios</title>
     <link rel="stylesheet" href="../styles/relatorio.css" />
 </head>
 <body>
+    <div class="overlay" id="overlay"></div>
+
     <header class="topbar">
       <button class="menu-btn" id="menuBtn">
         <span></span>
@@ -44,36 +46,35 @@
       <h2>Status da locomotivas:</h2>
       <h3>Locomotiva - Curitiba Express</h3>
 
-      <section class="cards">
+      <section class="cards-grid">
         <div class="card"><a><strong>Motor Diesel:</strong></a><h4 class="id-status">ÓTIMA</h4></div>
         <div class="card"><a><strong>Pressão de Óleo:</strong></a><h4 class="id-status">65 PSI (Normal)</h4></div>
         <div class="card"><a><strong>RPM do Motor:</strong></a><h4 class="id-status">1450 RPM</h4></div>
-      </section>
-      <section class="cards">
+      
         <div class="card"><a><strong>Saúde Geral:</strong></a><h4 class="id-status">BOA</h4></div>
         <div class="card"><a><strong>Temperatura Interna:</strong></a><h4 class="id-status">24ºC</h4></div>
         <div class="card"><a><strong>Nível de Combustível:</strong></a><h4 class="id-status">25% !!</h4></div>
-      </section>
-      <section class="cards">
+      
         <div class="card"><a><strong>Velocidade Atual:</strong></a><h4 class="id-status">98km/h</h4></div>
         <div class="card"><a><strong>Gerador Principal:</strong></a><h4 class="id-status">Amarelo !</h4></div>
         <div class="card"><a><strong>Tensão Bateria:</strong></a><h4 class="id-status">74.2V</h4></div>
-      </section>
-      <section class="cards">
+      
         <div class="card"><a><strong>Temp. do Motor:</strong></a><h4 class="id-status">88ºC !</h4></div>
         <div class="card"><a><strong>Sistema de Freio:</strong></a><h4 class="id-status">Ruim !!</h4></div>
         <div class="card"><a><strong>Status de Tração:</strong></a><h4 class="id-status">Engatados</h4></div>
       </section>
-      <section class="cards">
-        <div class="card gerenciar"><a>Gerenciar Alertas</a></div>
+      
+      <div class="card gerenciar side-link" onclick="window.location.href='locomotivas.html'" style="cursor: pointer;"><a>Ir para Locomotivas</a></div>
     </main>
 </body>
+
 <script>
     const menuBtn = document.getElementById("menuBtn");
     const sidebar = document.getElementById("sidebar");
     const overlay = document.getElementById("overlay");
     const id_status = document.querySelectorAll(".id-status");
 
+    // Lógica de coloração dos status
     id_status.forEach(elemento => {
         const texto = elemento.textContent.trim();
 
@@ -88,17 +89,18 @@
         }
     });
     
+    // Abrir/Fechar Menu
     menuBtn.addEventListener("click", () => {
         menuBtn.classList.toggle("active");
         sidebar.classList.toggle("active");
         overlay.classList.toggle("active");
-      });
+    });
 
-      overlay.addEventListener("click", () => {
+    // Fechar ao clicar no fundo escuro (overlay)
+    overlay.addEventListener("click", () => {
         sidebar.classList.remove("active");
         menuBtn.classList.remove("active");
         overlay.classList.remove("active");
-      });
-      
+    });
 </script>
 </html>

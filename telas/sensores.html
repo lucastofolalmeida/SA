@@ -3,11 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FerroHub</title>
+    <title>Sensores</title>
 
     <link rel="stylesheet" href="../styles/sensores.css" />
   </head>
-  <body>
+
+<body>
+
+<div class="modal" id="modal">
+
+    <div class="modal-content">
+
+        <h2>Adicionar Sensor</h2>
+
+        <label>Número do Sensor</label>
+        <input type="number" id="numeroSensor">
+
+        <label>Tipo do Sensor</label>
+        <input type="text" id="tipoSensor">
+
+        <label>Última leitura</label>
+        <input type="text" id="ultimaLeitura">
+
+        <div class="botoes-modal">
+            <button id="cancelar">Cancelar</button>
+            <button id="salvar">Salvar</button>
+        </div>
+    </div>
+</div>
+
     <header class="topbar">
       <button class="menu-btn" id="menuBtn">
         <span></span>
@@ -40,6 +64,9 @@
         </a>
       </nav>
     </aside>
+
+<div class="overlay" id="overlay"></div>
+
 <main>
     <div class="container">
       <h1 class="titulo">Sensores</h1>
@@ -53,10 +80,12 @@
       <div class="painel">
         <div class="topo">
           <div class="botao-add">+</div>
-          <button class="btn-sensor">Adicionar sensor</button>
+          <button class="btn-sensor" id="btnAdicionar">
+    Adicionar sensor
+</button>
         </div>
 
-        <div class="grid">
+        <div class="grid" id="gridSensores">
           <div class="card">
             <div class="acoes">
               <span class="delete">🗑</span>
@@ -150,6 +179,9 @@
       </div>
     </div>
 </main>
+
+  <!--A PARTIR DAQUI É JAVA!-->
+
     <script>
       const menuBtn = document.getElementById("menuBtn");
       const sidebar = document.getElementById("sidebar");
@@ -166,6 +198,112 @@
         menuBtn.classList.remove("active");
         overlay.classList.remove("active");
       });
+
+      const btnAdicionar = document.getElementById("btnAdicionar");
+const modal = document.getElementById("modal");
+const cancelar = document.getElementById("cancelar");
+const salvar = document.getElementById("salvar");
+const grid = document.getElementById("gridSensores");
+let cardEditando = null;
+
+btnAdicionar.onclick = () => {
+
+    cardEditando = null;
+
+    document.getElementById("numeroSensor").value = "";
+    document.getElementById("tipoSensor").value = "";
+    document.getElementById("ultimaLeitura").value = "";
+
+    modal.classList.add("ativo");
+
+}
+
+cancelar.onclick = () => {
+
+    modal.classList.remove("ativo");
+
+}
+
+salvar.onclick = () => {
+
+    const numero = document.getElementById("numeroSensor").value;
+    const tipo = document.getElementById("tipoSensor").value;
+    const leitura = document.getElementById("ultimaLeitura").value;
+
+    if(numero == "" || tipo == "" || leitura == ""){
+        alert("Preencha todos os campos.");
+        return;
+    }
+
+    if(cardEditando){
+
+        cardEditando.querySelector("h3").textContent = "Sensor " + numero;
+        cardEditando.querySelector("strong").textContent = tipo;
+        cardEditando.querySelector("p").textContent = "Última leitura: " + leitura;
+
+        cardEditando = null;
+
+    }else{
+
+        const card = document.createElement("div");
+
+        card.className = "card";
+
+        card.innerHTML = `
+            <div class="acoes">
+                <span class="delete">🗑</span>
+                <span class="edit">✏</span>
+            </div>
+
+            <h3>Sensor ${numero}</h3>
+            <strong>${tipo}</strong>
+            <p>Última leitura: ${leitura}</p>
+        `;
+
+        grid.appendChild(card);
+
+    }
+
+    modal.classList.remove("ativo");
+
+    document.getElementById("numeroSensor").value = "";
+    document.getElementById("tipoSensor").value = "";
+    document.getElementById("ultimaLeitura").value = "";
+
+}
+
+grid.addEventListener("click", function(event){
+
+    if(event.target.classList.contains("delete")){
+
+        const confirmar = confirm("Tem certeza que deseja excluir este sensor?");
+
+        if(confirmar){
+
+            event.target.closest(".card").remove();
+
+        }
+
+    }
+
+    if(event.target.classList.contains("edit")){
+
+        cardEditando = event.target.closest(".card");
+
+        const numero = cardEditando.querySelector("h3").textContent.replace("Sensor ","");
+        const tipo = cardEditando.querySelector("strong").textContent;
+        const leitura = cardEditando.querySelector("p").textContent.replace("Última leitura: ","");
+
+        document.getElementById("numeroSensor").value = numero;
+        document.getElementById("tipoSensor").value = tipo;
+        document.getElementById("ultimaLeitura").value = leitura;
+
+        modal.classList.add("ativo");
+
+    }
+
+});
+
     </script>
   </body>
 </html>
