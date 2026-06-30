@@ -7,8 +7,10 @@
 
     <link rel="stylesheet" href="../styles/Login.css" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
   </head>
 
   <body>
@@ -17,11 +19,11 @@
 
       <form id="form-cadastro">
         <div class="input-box">
-          <i class="fa-regular fa-user"></i> <i class="fa-regular fa-envelope"></i>
+          <i class="fa-regular fa-user"></i>
           <input type="text" id="nome" placeholder="Enter name" />
         </div>
 
-                <div class="input-box senha-box">
+        <div class="input-box senha-box">
           <i class="fa-solid fa-lock"></i>
 
           <input type="password" id="senha" placeholder="Password" />
@@ -37,8 +39,8 @@
 
       <div class="login">
         <p>
-          Já tem uma conta?
-          <a href="login.html">Faça <em>create your account</em></a>
+          Não tem uma conta?
+          <a href="sigin.html"> <em>create your account</em></a>
         </p>
       </div>
     </main>
@@ -65,48 +67,19 @@
 
       form.addEventListener("submit", function (event) {
         event.preventDefault();
-
         const nome = document.getElementById("nome").value.trim();
-        const sobrenome = document.getElementById("sobrenome").value.trim();
-        const email = document.getElementById("email").value.trim();
         const senhaValor = senha.value.trim();
-        const confirmarValor = confirmarSenha.value.trim();
 
         mensagem.textContent = "";
         validacao.textContent = "";
 
         if (nome === "") {
-          mensagem.textContent = "Preencha o primeiro nome.";
-          return;
-        }
-
-        if (sobrenome === "") {
-          mensagem.textContent = "Preencha o sobrenome.";
-          return;
-        }
-
-        if (email === "") {
-          mensagem.textContent = "Preencha o e-mail.";
-          return;
-        }
-
-        if (!email.includes("@")) {
-          mensagem.textContent = "Digite um e-mail válido.";
+          mensagem.textContent = "Preencha o nome.";
           return;
         }
 
         if (senhaValor.length < 6) {
           mensagem.textContent = "A senha deve ter pelo menos 6 caracteres.";
-          return;
-        }
-
-        if (confirmarValor === "") {
-          mensagem.textContent = "Confirme sua senha.";
-          return;
-        }
-
-        if (senhaValor !== confirmarValor) {
-          mensagem.textContent = "As senhas não coincidem.";
           return;
         }
 
