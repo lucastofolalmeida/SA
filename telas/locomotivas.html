@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>FerroHub - Locomotivas</title>
+
+    <link rel="stylesheet" href="../styles/locomotivas.css" />
+  </head>
+
+  <body>
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <h1>FerroHub</h1>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <nav>
+        <a href="locomotivas.html" class="side-link">
+          <img src="../assets/locomotiva.png" alt="" />
+          <span>Locomotivas</span>
+        </a>
+
+        <a href="relatorios.html" class="side-link">
+          <img src="../assets/relatorio.webp" alt="" />
+          <span>Relatórios</span>
+        </a>
+
+        <a href="sensores.html" class="side-link">
+          <img src="../assets/sensores.webp" alt="" />
+          <span>Sensores</span>
+        </a>
+
+        <a href="usuarios.html" class="side-link">
+          <img src="../assets/usuarios.png" alt="" />
+          <span>Usuários</span>
+        </a>
+      </nav>
+    </aside>
+
+    <div class="overlay" id="overlay"></div>
+
+    <main class="dashboard">
+      <h2>Locomotivas em Atividade:</h2>
+
+      <div class="dashboard-content">
+        <section class="locomotivas">
+          <article class="locomotiva-card">
+            <img
+              src="../assets/locomotiva.png"
+              alt="Locomotiva"
+              class="locomotiva-img"
+            />
+
+            <div class="locomotiva-info">
+              <h3>Locomotiva 027</h3>
+
+              <p class="status funcionando">
+                Status:
+                <span>Funcionando</span>
+              </p>
+
+              <p class="registro">
+                Último Registro:
+                <span>Sensor 3</span>
+              </p>
+            </div>
+
+            <div class="velocidade">
+              <strong>Velocidade</strong>
+
+              <span class="velocidade-valor funcionando"> 92 Km/h </span>
+            </div>
+          </article>
+
+          <article class="locomotiva-card">
+            <img
+              src="../assets/locomotiva.png"
+              alt="Locomotiva"
+              class="locomotiva-img"
+            />
+
+            <div class="locomotiva-info">
+              <h3>Locomotiva 028</h3>
+
+              <p class="status funcionando">
+                Status:
+                <span>Funcionando</span>
+              </p>
+
+              <p class="registro">
+                Último Registro:
+                <span>Sensor 8</span>
+              </p>
+            </div>
+
+            <div class="velocidade">
+              <strong>Velocidade</strong>
+
+              <span class="velocidade-valor funcionando"> 77 Km/h </span>
+            </div>
+          </article>
+
+          <article class="locomotiva-card">
+            <img
+              src="../assets/locomotiva.png"
+              alt="Locomotiva"
+              class="locomotiva-img"
+            />
+
+            <div class="locomotiva-info">
+              <h3>Locomotiva 029</h3>
+
+              <p class="status defeituoso">
+                Status:
+                <span>Defeituoso</span>
+              </p>
+
+              <p class="registro">
+                Último Registro:
+                <span class="sem-atividade"> Sem atividade </span>
+              </p>
+            </div>
+
+            <div class="velocidade">
+              <strong>Velocidade</strong>
+
+              <span class="velocidade-valor defeituoso"> 0 Km/h </span>
+            </div>
+          </article>
+
+          <article class="locomotiva-card">
+            <img
+              src="../assets/locomotiva.png"
+              alt="Locomotiva"
+              class="locomotiva-img"
+            />
+
+            <div class="locomotiva-info">
+              <h3>Locomotiva 030</h3>
+
+              <p class="status alerta">
+                Status:
+                <span>Alerta</span>
+              </p>
+
+              <p class="registro">
+                Último Registro:
+                <span>Sensor 5</span>
+              </p>
+            </div>
+
+            <div class="velocidade">
+              <strong>Velocidade</strong>
+
+              <span class="velocidade-valor alerta"> 43 Km/h </span>
+            </div>
+          </article>
+
+          <article class="locomotiva-card">
+            <img
+              src="../assets/locomotiva.png"
+              alt="Locomotiva"
+              class="locomotiva-img"
+            />
+
+            <div class="locomotiva-info">
+              <h3>Locomotiva 031</h3>
+
+              <p class="status funcionando">
+                Status:
+                <span>Funcionando</span>
+              </p>
+
+              <p class="registro">
+                Último Registro:
+                <span>Sensor 1</span>
+              </p>
+            </div>
+
+            <div class="velocidade">
+              <strong>Velocidade</strong>
+
+              <span class="velocidade-valor funcionando"> 83 Km/h </span>
+            </div>
+          </article>
+        </section>
+
+        <section class="sensor-panel">
+          <h3>Sensores da locomotiva selecionada</h3>
+
+          <div class="sensor-grid"></div>
+        </section>
+      </div>
+      <a href="relatorios.html" class="relatorios-btn"> Ver Relatórios </a>
+    </main>
+
+    <script>
+      const menuBtn = document.getElementById("menuBtn");
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+
+      menuBtn.addEventListener("click", () => {
+        menuBtn.classList.toggle("active");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      });
+
+      overlay.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        menuBtn.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>

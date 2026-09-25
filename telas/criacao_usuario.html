@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sigin</title>
+
+    <link rel="stylesheet" href="../styles/sigin.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  </head>
+
+  <body>
+    <main class="container">
+      <h1>Change the user</h1>
+
+      <form id="form-cadastro">
+        <div class="input-box">
+          <i class="fa-regular fa-user"></i>
+          <input type="text" id="nome" placeholder="First name" />
+        </div>
+
+        <div class="input-box">
+          <i class="fa-regular fa-user"></i>
+          <input type="text" id="sobrenome" placeholder="Last name" />
+        </div>
+
+        <div class="input-box">
+          <i class="fa-regular fa-envelope"></i>
+          <input type="email" id="email" placeholder="Email" />
+        </div>
+
+        <div class="input-box senha-box">
+          <i class="fa-solid fa-lock"></i>
+
+          <input type="password" id="senha" placeholder="Password" />
+
+          <i class="fa-regular fa-eye olho" id="olhoSenha"></i>
+        </div>
+
+        <div class="input-box senha-box">
+          <i class="fa-solid fa-lock"></i>
+
+          <input
+            type="password"
+            id="confirmarSenha"
+            placeholder="Confirm Password"
+          />
+
+          <i class="fa-regular fa-eye olho" id="olhoConfirmar"></i>
+        </div>
+
+        <button type="submit">Create account</button>
+
+        <p id="mensagem"></p>
+        <p id="validacao"></p>
+      </form>
+
+      <div class="login">
+        <p>
+          Já tem uma conta?
+          <a href="login.html">Faça <em>Log In</em></a>
+        </p>
+      </div>
+    </main>
+
+    <script>
+      const form = document.getElementById("form-cadastro");
+      const mensagem = document.getElementById("mensagem");
+      const validacao = document.getElementById("validacao");
+
+      const olhoSenha = document.getElementById("olhoSenha");
+      const olhoConfirmar = document.getElementById("olhoConfirmar");
+
+      const senha = document.getElementById("senha");
+      const confirmarSenha = document.getElementById("confirmarSenha");
+
+      olhoSenha.addEventListener("click", () => {
+        senha.type = senha.type === "password" ? "text" : "password";
+      });
+
+      olhoConfirmar.addEventListener("click", () => {
+        confirmarSenha.type =
+          confirmarSenha.type === "password" ? "text" : "password";
+      });
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const nome = document.getElementById("nome").value.trim();
+        const sobrenome = document.getElementById("sobrenome").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const senhaValor = senha.value.trim();
+        const confirmarValor = confirmarSenha.value.trim();
+
+        mensagem.textContent = "";
+        validacao.textContent = "";
+
+        if (nome === "") {
+          mensagem.textContent = "Preencha o primeiro nome.";
+          return;
+        }
+
+        if (sobrenome === "") {
+          mensagem.textContent = "Preencha o sobrenome.";
+          return;
+        }
+
+        if (email === "") {
+          mensagem.textContent = "Preencha o e-mail.";
+          return;
+        }
+
+        if (!email.includes("@")) {
+          mensagem.textContent = "Digite um e-mail válido.";
+          return;
+        }
+
+        if (senhaValor.length < 6) {
+          mensagem.textContent = "A senha deve ter pelo menos 6 caracteres.";
+          return;
+        }
+
+        if (confirmarValor === "") {
+          mensagem.textContent = "Confirme sua senha.";
+          return;
+        }
+
+        if (senhaValor !== confirmarValor) {
+          mensagem.textContent = "As senhas não coincidem.";
+          return;
+        }
+
+        validacao.textContent = "Formulário validado com sucesso.";
+      });
+    </script>
+  </body>
+</html>

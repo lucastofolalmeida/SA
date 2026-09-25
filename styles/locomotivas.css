@@ -1,0 +1,698 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   BODY
+========================================================= */
+
+body {
+  min-height: 100vh;
+
+  background: #424242;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  color: #003459;
+
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar {
+  width: 100%;
+  height: 50px;
+
+  background: #003459;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.topbar h1 {
+  color: white;
+
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.menu-btn {
+  position: absolute;
+  left: 20px;
+
+  width: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.menu-btn span {
+  width: 38px;
+  height: 5px;
+  border-radius: 10px;
+  background: white;
+
+  transform-origin: center;
+  transition:
+    width 0.35s ease,
+    height 0.35s ease,
+    border-radius 0.35s ease,
+    transform 0.35s ease;
+}
+
+.menu-btn.active span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: scale(1.1);
+  transform: rotate(135deg);
+}
+
+.sidebar {
+  width: 280px;
+  height: auto;
+  padding-bottom: 20px;
+  background: #003459;
+
+  position: fixed;
+  left: -280px;
+  top: 0;
+
+  padding-top: 70px;
+
+  transition: 0.3s ease;
+
+  z-index: 999;
+
+  border-radius: 20px;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-link {
+  width: 95%;
+  background-color: #cceaff;
+  border-radius: 30px;
+
+  padding: 18px 25px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+  margin-left: 5px;
+  text-decoration: none;
+  color: black;
+
+  transition: 0.3s;
+}
+
+.side-link:hover {
+  background: #1c5e8c;
+  transform: translateY(-5px);
+}
+
+.side-link img {
+  width: 30px;
+  height: 30px;
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.overlay {
+  position: fixed;
+
+  width: 100%;
+  height: 100vh;
+
+  background: rgba(0, 0, 0, 0.4);
+
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: 0.3s;
+
+  z-index: 998;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard {
+  width: 100%;
+
+  min-height: 100vh;
+
+  padding: 68px 15px 40px;
+}
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.dashboard > h2 {
+  color: #9ed4f5;
+
+  font-size: 30px;
+
+  line-height: 1.1;
+
+  margin-bottom: 12px;
+}
+
+/* =========================================================
+   CONTEÚDO DO DASHBOARD
+========================================================= */
+
+.dashboard-content {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns: 500px minmax(0, 1fr);
+
+  gap: 25px;
+
+  align-items: start;
+}
+
+/* =========================================================
+   LISTA DE LOCOMOTIVAS
+========================================================= */
+
+.locomotivas {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+/* =========================================================
+   CARD DA LOCOMOTIVA
+========================================================= */
+
+.locomotiva-card {
+  width: 100%;
+  height: 90px;
+
+  background: #cceaff;
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+  color: #003459;
+}
+
+/* =========================================================
+   IMAGEM DA LOCOMOTIVA
+========================================================= */
+
+.locomotiva-img {
+  width: 100px;
+  height: 90px;
+
+  object-fit: contain;
+
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   INFORMAÇÕES
+========================================================= */
+
+.locomotiva-info {
+  height: 100%;
+
+  padding: 5px 0;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  min-width: 0;
+}
+
+.locomotiva-info h3 {
+  font-size: 18px;
+
+  margin-bottom: 4px;
+
+  white-space: nowrap;
+}
+
+.locomotiva-info p {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.status span {
+  color: #32b91f;
+}
+
+.status.defeituoso span {
+  color: #ff2424;
+}
+
+.status.alerta span {
+  color: #ff6815;
+}
+
+.registro span {
+  color: #35b921;
+}
+
+.registro .sem-atividade {
+  color: #ff2424;
+}
+
+/* =========================================================
+   VELOCIDADE
+========================================================= */
+
+.velocidade {
+  height: 100%;
+
+  margin-left: auto;
+
+  padding: 4px 12px 4px 5px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+  justify-content: center;
+
+  flex-shrink: 0;
+}
+
+.velocidade strong {
+  font-size: 17px;
+
+  margin-bottom: 5px;
+}
+
+.velocidade-valor {
+  font-size: 25px;
+
+  white-space: nowrap;
+}
+
+.velocidade-valor.funcionando {
+  color: #36b91d;
+}
+
+.velocidade-valor.defeituoso {
+  color: #ff2222;
+}
+
+.velocidade-valor.alerta {
+  color: #ff6815;
+}
+
+/* =========================================================
+   PAINEL DE SENSORES
+========================================================= */
+
+.sensor-panel {
+  width: 100%;
+
+  min-height: 285px;
+
+  background: #5798c9;
+
+  border-radius: 18px;
+
+  padding: 40px 20px 25px;
+}
+
+.sensor-panel h3 {
+  width: fit-content;
+
+  margin: 0 auto 34px;
+
+  padding: 6px 10px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  color: #003459;
+
+  font-size: 20px;
+
+  text-align: center;
+}
+
+/* =========================================================
+   GRID DE SENSORES
+========================================================= */
+
+.sensor-grid {
+  width: 100%;
+
+  background: #eef3f9;
+
+  display: grid;
+
+  grid-template-columns: repeat(18, minmax(38px, 1fr));
+
+  grid-auto-rows: 29px;
+
+  overflow: hidden;
+}
+
+.sensor-grid span {
+  display: flex;
+
+  align-items: center;
+
+  padding-left: 5px;
+
+  color: #4d5c68;
+
+  font-size: 10px;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   BOTÃO RELATÓRIOS
+========================================================= */
+
+.relatorios-btn {
+  display: block;
+
+  width: fit-content;
+
+  margin: 138px auto 0;
+
+  padding: 8px 24px;
+
+  background: #cceaff;
+
+  color: #003459;
+
+  border-radius: 25px;
+
+  text-decoration: none;
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+  transition: 0.2s ease;
+}
+
+.relatorios-btn:hover {
+  background: #91caf2;
+
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 900px) {
+  .dashboard {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .dashboard-content {
+    grid-template-columns: 350px minmax(0, 1fr);
+  }
+
+  .locomotiva-card {
+    height: 72px;
+  }
+
+  .locomotiva-img {
+    width: 76px;
+    height: 72px;
+  }
+
+  .locomotiva-info h3 {
+    font-size: 15px;
+  }
+
+  .locomotiva-info p {
+    font-size: 11px;
+  }
+
+  .velocidade strong {
+    font-size: 14px;
+  }
+
+  .velocidade-valor {
+    font-size: 20px;
+  }
+
+  .sensor-panel {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 700px) {
+  body {
+    min-height: 100vh;
+  }
+
+  /* -----------------------------
+       TOPO
+    ----------------------------- */
+
+  .topbar {
+    height: 50px;
+  }
+
+  .topbar h1 {
+    font-size: 21px;
+  }
+
+  /* -----------------------------
+       CONTEÚDO
+    ----------------------------- */
+
+  .dashboard {
+    padding: 70px 8px 30px;
+  }
+
+  .dashboard > h2 {
+    font-size: 29px;
+
+    margin-bottom: 13px;
+
+    white-space: nowrap;
+  }
+
+  /* -----------------------------
+       COLUNA ÚNICA
+    ----------------------------- */
+
+  .dashboard-content {
+    display: block;
+  }
+
+  /* -----------------------------
+       LOCOMOTIVAS
+    ----------------------------- */
+
+  .locomotivas {
+    gap: 14px;
+  }
+
+  .locomotiva-card {
+    height: 62px;
+
+    border-radius: 17px;
+  }
+
+  .locomotiva-img {
+    width: 76px;
+    height: 62px;
+  }
+
+  .locomotiva-info {
+    padding: 3px 0;
+  }
+
+  .locomotiva-info h3 {
+    font-size: 16px;
+
+    margin-bottom: 1px;
+  }
+
+  .locomotiva-info p {
+    font-size: 12px;
+
+    line-height: 16px;
+  }
+
+  .velocidade {
+    padding-right: 10px;
+  }
+
+  .velocidade strong {
+    font-size: 15px;
+
+    margin-bottom: 3px;
+  }
+
+  .velocidade-valor {
+    font-size: 22px;
+  }
+
+  /* -----------------------------
+       PAINEL DE SENSORES
+       
+       Na versão mobile da imagem
+       esse painel não aparece.
+    ----------------------------- */
+
+  .sensor-panel {
+    display: none;
+  }
+
+  /* -----------------------------
+       BOTÃO
+    ----------------------------- */
+
+  .relatorios-btn {
+    margin-top: 45px;
+
+    padding: 8px 23px;
+
+    font-size: 15px;
+  }
+}
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+========================================================= */
+
+@media (max-width: 400px) {
+  .dashboard {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .dashboard > h2 {
+    font-size: 28px;
+  }
+
+  .locomotiva-card {
+    height: 59px;
+  }
+
+  .locomotiva-img {
+    width: 72px;
+    height: 59px;
+  }
+
+  .locomotiva-info h3 {
+    font-size: 15px;
+  }
+
+  .locomotiva-info p {
+    font-size: 11px;
+
+    line-height: 15px;
+  }
+
+  .velocidade {
+    padding-right: 8px;
+  }
+
+  .velocidade strong {
+    font-size: 14px;
+  }
+
+  .velocidade-valor {
+    font-size: 21px;
+  }
+}
+
+/* =========================================================
+   CELULARES ESTREITOS
+========================================================= */
+
+@media (max-width: 350px) {
+  .dashboard > h2 {
+    font-size: 24px;
+  }
+
+  .locomotiva-img {
+    width: 65px;
+  }
+
+  .locomotiva-info h3 {
+    font-size: 13px;
+  }
+
+  .locomotiva-info p {
+    font-size: 9px;
+  }
+
+  .velocidade strong {
+    font-size: 12px;
+  }
+
+  .velocidade-valor {
+    font-size: 17px;
+  }
+}

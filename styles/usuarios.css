@@ -66,7 +66,6 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  transform: scale(1.1);
   transform: rotate(135deg);
 }
 
@@ -116,9 +115,11 @@ body {
   transition: 0.3s;
 }
 
-.side-link:hover {
+.side-link:hover,
+.side-link.active-link {
   background: #1c5e8c;
   transform: translateY(-5px);
+  color: white;
 }
 
 .side-link img {
@@ -160,141 +161,140 @@ body {
 }
 
 .container h2 {
-  font-size: 4rem;
+  font-size: 2.6rem;
   text-align: center;
 
   color: #cceaff;
 
-  max-width: 900px;
-
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 
-.cards {
-  width: 100%;
-
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-
-  flex-wrap: wrap;
-
-  padding: 0 20px;
-}
-
-.card {
-  position: relative;
-
-  width: 220px;
-  height: 220px;
-
+.panel {
   background: #69a7da;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 20px 40px;
   border-radius: 20px;
+  padding: 18px;
+}
 
+.user-list {
+  list-style: none;
   display: flex;
   flex-direction: column;
+  gap: 14px;
+  max-height: 480px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.user-list::-webkit-scrollbar {
+  width: 8px;
+}
+.user-list::-webkit-scrollbar-thumb {
+  background: #003459;
+  border-radius: 4px;
+}
+.user-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.user-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px 20px;
+  display: flex;
   align-items: center;
-  justify-content: center;
-
-  gap: 20px;
-
-  text-decoration: none;
+  gap: 18px;
+  color: #1c2733;
   transition: 0.3s ease;
 }
 
-.alarme {
-  position: absolute;
+.user-card:hover {
+  transform: translateY(-5px);
+  background: #f0f7fd;
+}
 
-  top: 20px;
-  right: 20px;
+.avatar {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #cceaff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #003459;
+  background: #cceaff;
+}
+
+.user-info p {
+  font-size: 0.98rem;
+  line-height: 1.5;
+  color: #1c2733;
+}
+
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 3px 12px;
+  border-radius: 999px;
+}
+
+.badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.badge-green {
+  background: #3fa34d;
+}
+
+.badge-red {
+  background: #d6483f;
+}
+
+.add-card {
+  cursor: pointer;
+}
+
+.avatar-add {
+  background: #eef2f6;
+}
+
+.plus {
   font-size: 2rem;
-  color: #ff0000;
-
-  text-shadow:
-    0 0 5px #ff0000,
-    0 0 10px #ff0000,
-    0 0 20px #ff0000,
-    0 0 30px #ff0000;
-
-  animation: alerta 1.5s infinite;
-
-  /* display: none; */
+  line-height: 1;
+  color: #003459;
+  font-weight: 300;
 }
 
-.alarme.ativo {
-  display: block;
-}
-
-@keyframes alerta {
-  0%,
-  100% {
-    transform: scale(1);
-    text-shadow:
-      0 0 5px #ff0000,
-      0 0 10px #ff0000,
-      0 0 20px #ff0000,
-      0 0 30px #ff0000;
-  }
-
-  50% {
-    transform: scale(1.25);
-    text-shadow:
-      0 0 10px #ff0000,
-      0 0 20px #ff0000,
-      0 0 40px #ff0000,
-      0 0 60px #ff0000;
-  }
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  background: #91caf2;
-}
-
-.card img {
-  width: 110px;
-  height: 110px;
-  object-fit: contain;
-}
-
-.card span {
-  font-size: 2rem;
-  font-weight: bold;
-  color: white;
-}
-
-.logo-area {
-  margin-top: 70px;
-  margin-bottom: 40px;
-}
-
-.logo-area img {
-  width: 560px;
-  max-width: 90%;
-}
-
-@media (max-width: 900px) {
-  .container h2 {
-    font-size: 3rem;
-    padding: 0 20px;
-  }
-
-  .card {
-    width: 180px;
-    height: 180px;
-  }
-
-  .card img {
-    width: 90px;
-    height: 90px;
-  }
-
-  .card span {
-    font-size: 1.7rem;
-  }
-}
-
+/* ---------- Responsivo ---------- */
 @media (max-width: 600px) {
   .topbar {
     height: 60px;
@@ -309,34 +309,21 @@ body {
   }
 
   .container h2 {
-    font-size: 2.2rem;
-    text-align: left;
-
-    width: 95%;
-
-    margin-bottom: 40px;
+    font-size: 1.8rem;
   }
 
-  .cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    gap: 18px;
-
-    width: 95%;
+  .panel {
+    margin: 0 12px 24px;
+    padding: 12px;
   }
 
-  .card {
-    width: 100%;
-    height: 150px;
+  .user-card {
+    padding: 12px;
+    gap: 12px;
   }
 
-  .card img {
-    width: 75px;
-    height: 75px;
-  }
-
-  .card span {
-    font-size: 1rem;
+  .avatar {
+    width: 50px;
+    height: 50px;
   }
 }

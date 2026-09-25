@@ -3,43 +3,109 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sensores</title>
+
+    <title>Sensores | FerroHub</title>
 
     <link rel="stylesheet" href="../styles/sensores.css" />
   </head>
 
-<body>
+  <body>
+    <!-- =========================
+         MODAL
+    ========================== -->
 
-<div class="modal" id="modal">
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <span class="modal-subtitulo">GERENCIAMENTO</span>
+            <h2 id="tituloModal">Adicionar sensor</h2>
+          </div>
 
-    <div class="modal-content">
+          <button class="fechar-modal" id="fecharModal">&times;</button>
+        </div>
 
-        <h2>Adicionar Sensor</h2>
+        <label for="numeroSensor">Número do sensor</label>
+        <input type="number" id="numeroSensor" placeholder="Ex.: 10" />
 
-        <label>Número do Sensor</label>
-        <input type="number" id="numeroSensor">
+        <label for="tipoSensor">Tipo do sensor</label>
+        <input type="text" id="tipoSensor" placeholder="Ex.: Indutivo" />
 
-        <label>Tipo do Sensor</label>
-        <input type="text" id="tipoSensor">
+        <label for="tremSensor">Trem vinculado</label>
+        <input type="text" id="tremSensor" placeholder="Ex.: Trem 01" />
 
-        <label>Última leitura</label>
-        <input type="text" id="ultimaLeitura">
+        <div class="linha-inputs">
+          <div>
+            <label for="valorLeitura">Última leitura</label>
+
+            <input
+              type="number"
+              id="valorLeitura"
+              step="any"
+              placeholder="Ex.: 72"
+            />
+          </div>
+
+          <div>
+            <label for="unidadeLeitura">Unidade</label>
+
+            <input type="text" id="unidadeLeitura" placeholder="Ex.: mm" />
+          </div>
+        </div>
+
+        <div class="linha-inputs">
+          <div>
+            <label for="minimoEsperado">Mínimo esperado</label>
+
+            <input
+              type="number"
+              id="minimoEsperado"
+              step="any"
+              placeholder="Ex.: 0"
+            />
+          </div>
+
+          <div>
+            <label for="maximoEsperado">Máximo esperado</label>
+
+            <input
+              type="number"
+              id="maximoEsperado"
+              step="any"
+              placeholder="Ex.: 100"
+            />
+          </div>
+        </div>
 
         <div class="botoes-modal">
-            <button id="cancelar">Cancelar</button>
-            <button id="salvar">Salvar</button>
+          <button type="button" id="cancelar" class="btn-cancelar">
+            Cancelar
+          </button>
+
+          <button type="button" id="salvar" class="btn-salvar">
+            Salvar sensor
+          </button>
         </div>
+      </div>
     </div>
-</div>
+
+    <!-- =========================
+         TOPO
+    ========================== -->
 
     <header class="topbar">
-      <button class="menu-btn" id="menuBtn">
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
         <span></span>
         <span></span>
         <span></span>
       </button>
+
       <h1>FerroHub</h1>
     </header>
+
+    <!-- =========================
+         MENU LATERAL
+    ========================== -->
 
     <aside class="sidebar" id="sidebar">
       <nav>
@@ -53,7 +119,7 @@
           <span>Relatórios</span>
         </a>
 
-        <a href="sensores.html" class="side-link">
+        <a href="sensores.html" class="side-link ativo">
           <img src="../assets/sensores.webp" alt="" />
           <span>Sensores</span>
         </a>
@@ -65,245 +131,128 @@
       </nav>
     </aside>
 
-<div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay"></div>
 
-<main>
-    <div class="container">
-      <h1 class="titulo">Sensores</h1>
+    <!-- =========================
+         CONTEÚDO
+    ========================== -->
 
-      <input
-        class="input-trem"
-        type="text"
-        placeholder="Insira o nome do trem"
-      />
+    <main>
+      <div class="container">
+        <div class="cabecalho-pagina">
+          <div>
+            <span class="eyebrow"> MONITORAMENTO </span>
 
-      <div class="painel">
-        <div class="topo">
-          <div class="botao-add">+</div>
-          <button class="btn-sensor" id="btnAdicionar">
-    Adicionar sensor
-</button>
+            <h2 class="titulo">Sensores</h2>
+
+            <p class="descricao">
+              Acompanhe os sensores cadastrados e suas últimas leituras.
+            </p>
+          </div>
+
+          <button class="btn-adicionar" id="btnAdicionar">
+            <span>+</span>
+            Adicionar sensor
+          </button>
         </div>
 
-        <div class="grid" id="gridSensores">
-          <div class="card">
-            <div class="acoes">
-              <span class="delete">🗑</span>
-              <span class="edit">✏</span>
+        <!-- =========================
+                 RESUMO
+            ========================== -->
+
+        <section class="resumo">
+          <div class="resumo-card">
+            <div class="resumo-icone azul">
+              <span>◉</span>
             </div>
-            <h3>Sensor 10</h3>
-            <strong>Indutivo</strong>
-            <p>ultima leitura: 11:21</p>
+
+            <div>
+              <strong id="totalSensores">0</strong>
+              <span>Total de sensores</span>
+            </div>
           </div>
 
-          <div class="card">
-            <div class="acoes">
-              <span class="delete">🗑</span>
-              <span class="edit">✏</span>
+          <div class="resumo-card">
+            <div class="resumo-icone verde">
+              <span>✓</span>
             </div>
-            <h3>Sensor 01</h3>
-            <strong>Indutivo</strong>
-            <p>ultima leitura: 11:25</p>
+
+            <div>
+              <strong id="sensoresNormais">0</strong>
+              <span>Dentro do intervalo</span>
+            </div>
           </div>
 
-          <div class="card">
-            <div class="acoes">
-              <span class="delete">🗑</span>
-              <span class="edit">✏</span>
+          <div class="resumo-card">
+            <div class="resumo-icone vermelho">
+              <span>!</span>
             </div>
-            <h3>Sensor 75</h3>
-            <strong>Indutivo</strong>
-            <p>ultima leitura: 11:38</p>
+
+            <div>
+              <strong id="sensoresAlerta">0</strong>
+              <span>Fora do intervalo</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================
+                 FILTROS
+            ========================== -->
+
+        <section class="filtros">
+          <div class="campo-busca">
+            <span>⌕</span>
+
+            <input
+              type="text"
+              id="buscaSensor"
+              placeholder="Buscar sensor..."
+            />
           </div>
 
-          <div class="card">
-            <div class="acoes">
-              <span class="delete">🗑</span>
-              <span class="edit">✏</span>
+          <select id="filtroTrem">
+            <option value="todos">Todos os trens</option>
+          </select>
+
+          <select id="filtroTipo">
+            <option value="todos">Todos os tipos</option>
+          </select>
+
+          <select id="filtroStatus">
+            <option value="todos">Todas as situações</option>
+
+            <option value="normal">Dentro do intervalo</option>
+
+            <option value="alerta">Fora do intervalo</option>
+          </select>
+        </section>
+
+        <!-- =========================
+                 PAINEL
+            ========================== -->
+
+        <section class="painel">
+          <div class="painel-header">
+            <div>
+              <h3>Sensores cadastrados</h3>
+
+              <span id="contadorResultados"> 0 sensores encontrados </span>
             </div>
-            <h3>Sensor 77</h3>
-            <strong>Indutivo</strong>
-            <p>ultima leitura: 9:30</p>
           </div>
 
-          <div class="card">
-            <div class="acoes">
-              <span class="delete">🗑</span>
-              <span class="edit">✏</span>
-            </div>
-            <h3>Sensor 67</h3>
-            <strong>Indutivo</strong>
-            <p>ultima leitura: 9:35</p>
-          </div>
+          <div class="grid" id="gridSensores"></div>
 
-          <div class="card">
-            <div class="acoes">
-              <span class="delete">🗑</span>
-              <span class="edit">✏</span>
-            </div>
-            <h3>Sensor 69</h3>
-            <strong>Indutivo</strong>
-            <p>ultima leitura: 11:29</p>
-          </div>
+          <div class="estado-vazio" id="estadoVazio" style="display: none">
+            <div class="vazio-icone">◌</div>
 
-          <div class="card">
-            <div class="acoes">
-              <span class="delete">🗑</span>
-              <span class="edit">✏</span>
-            </div>
-            <h3>Sensor 92</h3>
-            <strong>Indutivo</strong>
-            <p>ultima leitura: 8:58</p>
-          </div>
+            <h3>Nenhum sensor encontrado</h3>
 
-          <div class="card">
-            <div class="acoes">
-              <span class="delete">🗑</span>
-              <span class="edit">✏</span>
-            </div>
-            <h3>Sensor 32</h3>
-            <strong>Indutivo</strong>
-            <p>ultima leitura: 6:27</p>
+            <p>Tente alterar os filtros ou cadastrar um novo sensor.</p>
           </div>
-
-          <div class="card">
-            <div class="acoes">
-              <span class="delete">🗑</span>
-              <span class="edit">✏</span>
-            </div>
-            <h3>Sensor 64</h3>
-            <strong>Indutivo</strong>
-            <p>ultima leitura: 9:9</p>
-          </div>
-        </div>
+        </section>
       </div>
-    </div>
-</main>
+    </main>
 
-  <!--A PARTIR DAQUI É JAVA!-->
-
-    <script>
-      const menuBtn = document.getElementById("menuBtn");
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
-
-      menuBtn.addEventListener("click", () => {
-        menuBtn.classList.toggle("active");
-        sidebar.classList.toggle("active");
-        overlay.classList.toggle("active");
-      });
-
-      overlay.addEventListener("click", () => {
-        sidebar.classList.remove("active");
-        menuBtn.classList.remove("active");
-        overlay.classList.remove("active");
-      });
-
-      const btnAdicionar = document.getElementById("btnAdicionar");
-const modal = document.getElementById("modal");
-const cancelar = document.getElementById("cancelar");
-const salvar = document.getElementById("salvar");
-const grid = document.getElementById("gridSensores");
-let cardEditando = null;
-
-btnAdicionar.onclick = () => {
-
-    cardEditando = null;
-
-    document.getElementById("numeroSensor").value = "";
-    document.getElementById("tipoSensor").value = "";
-    document.getElementById("ultimaLeitura").value = "";
-
-    modal.classList.add("ativo");
-
-}
-
-cancelar.onclick = () => {
-
-    modal.classList.remove("ativo");
-
-}
-
-salvar.onclick = () => {
-
-    const numero = document.getElementById("numeroSensor").value;
-    const tipo = document.getElementById("tipoSensor").value;
-    const leitura = document.getElementById("ultimaLeitura").value;
-
-    if(numero == "" || tipo == "" || leitura == ""){
-        alert("Preencha todos os campos.");
-        return;
-    }
-
-    if(cardEditando){
-
-        cardEditando.querySelector("h3").textContent = "Sensor " + numero;
-        cardEditando.querySelector("strong").textContent = tipo;
-        cardEditando.querySelector("p").textContent = "Última leitura: " + leitura;
-
-        cardEditando = null;
-
-    }else{
-
-        const card = document.createElement("div");
-
-        card.className = "card";
-
-        card.innerHTML = `
-            <div class="acoes">
-                <span class="delete">🗑</span>
-                <span class="edit">✏</span>
-            </div>
-
-            <h3>Sensor ${numero}</h3>
-            <strong>${tipo}</strong>
-            <p>Última leitura: ${leitura}</p>
-        `;
-
-        grid.appendChild(card);
-
-    }
-
-    modal.classList.remove("ativo");
-
-    document.getElementById("numeroSensor").value = "";
-    document.getElementById("tipoSensor").value = "";
-    document.getElementById("ultimaLeitura").value = "";
-
-}
-
-grid.addEventListener("click", function(event){
-
-    if(event.target.classList.contains("delete")){
-
-        const confirmar = confirm("Eai meu mano. Tem certeza mesmo que deseja excluir este parada???");
-
-        if(confirmar){
-
-            event.target.closest(".card").remove();
-
-        }
-
-    }
-
-    if(event.target.classList.contains("edit")){
-
-        cardEditando = event.target.closest(".card");
-
-        const numero = cardEditando.querySelector("h3").textContent.replace("Sensor ","");
-        const tipo = cardEditando.querySelector("strong").textContent;
-        const leitura = cardEditando.querySelector("p").textContent.replace("Última leitura: ","");
-
-        document.getElementById("numeroSensor").value = numero;
-        document.getElementById("tipoSensor").value = tipo;
-        document.getElementById("ultimaLeitura").value = leitura;
-
-        modal.classList.add("ativo");
-
-    }
-
-});
-
-    </script>
+    <script src="../scripts/sensores.js"></script>
   </body>
 </html>
