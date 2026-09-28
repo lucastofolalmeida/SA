@@ -8,7 +8,7 @@ $prefixo = '';
 $modelo = '';
 $ano_de_fabricacao = '';
 $status = 'ativo';
-$status = [
+$status_opcoes = [
     'ativo' => 'Ativo',
     'manutencao' => 'Em manutenção',
     'inativo' => 'Inativo'
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erros[] = 'Informe um ano de fabricação entre 1900 e 2100.';
     }
 
-    if (!isset($status[$status])) {
+    if (!isset($status_opcoes[$status])) {
         $erros[] = 'Selecione um status válido.';
     }
 
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($id > 0) {
             $stmt = $conexao->prepare('UPDATE trem SET prefixo = ?, modelo = ?, ano_de_fabricacao = ?, status = ? WHERE id_trem = ?');
-            $stmt->bind_param('ssidsi', $prefixo, $modelo, $ano, $capacidade, $status, $id);
+            $stmt->bind_param('ssisi', $prefixo, $modelo, $ano, $status, $id);
 
             if ($stmt->execute()) {
                 $_SESSION['mensagem'] = 'Trem atualizado com sucesso!';
@@ -70,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['mensagem'] = 'Não foi possível realizar a atualização.';
             }
         } else {
-            $stmt = $conexao->prepare('INSERT INTO trem (prefixo, modelo, ano_de_fabricacao, status) VALUES (?, ?, ?, ?, ?)');
-            $stmt->bind_param('ssids', $prefixo, $modelo, $ano_de_fabricacao, $status);
+            $stmt = $conexao->prepare('INSERT INTO trem (prefixo, modelo, ano_de_fabricacao, status) VALUES (?, ?, ?, ?)');
+            $stmt->bind_param('ssis', $prefixo, $modelo, $ano_de_fabricacao, $status);
 
             if ($stmt->execute()) {
                 $_SESSION['mensagem'] = 'Trem cadastrado com sucesso!';
@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="status">Status</label>
                 <select id="status" name="status">
                     <?php
-                    foreach ($status as $chave => $rotulo):
+                    foreach ($status_opcoes as $chave => $rotulo):
                     ?>
                         <option value="<?= $chave ?>" <?= $chave === $status ? 'selected' : '' ?>>
                             <?= $rotulo ?>
@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="acoes">
             <button type="submit" class="botao botao-primario"><?= $id > 0 ? 'Atualizar' : 'Cadastrar' ?></button>
-            <a href="trens.php" class="botao botao-secundario">Cancelar</a>
+            <a href="locomotivas.php" class="botao botao-secundario">Cancelar</a>
         </div>
     </form>
 </body>
