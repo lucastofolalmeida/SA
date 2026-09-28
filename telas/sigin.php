@@ -1,3 +1,67 @@
+<?php
+require 'conexao.php';
+
+$login = '';
+$email = '';
+$erros = [];
+$sucesso = '';
+$cargo = '';
+$status = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $login = trim($_POST['login'] ?? '');
+    $email = $_POST['email'] ?? '';
+    $senha = $_POST['senha'] ?? '';
+    $confirmacao = $_POST['confirmarSenha'] ?? '';
+
+    if ($login === '') {
+        $erros[] = 'Informe o login.';
+    } elseif (mb_strlen($login) > 80) {
+        $erros[] = 'O login deve ter no máximo 80 caracteres.';
+    }
+
+    if ($email === '') {
+      $erros[] = 'Informe o email';
+    }
+
+    if ($senha === '') {
+        $erros[] = 'Informe a senha.';
+    } elseif (strlen($senha) < 6) {
+        $erros[] = 'A senha deve ter pelo menos 6 caracteres.';
+    }
+
+    if ($senha !== $confirmacao) {
+        $erros[] = 'A confirmação da senha não confere.';
+    }
+
+    if (count($erros) === 0) {
+        $stmt = $conexao->prepare('SELECT id FROM usuario WHERE login = ? LIMIT 1');
+        $stmt->bind_param('s', $login);
+        $stmt->execute();
+        $existe = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+
+        if ($existe) {
+            $erros[] = 'Este login já está cadastrado.';
+        } else {
+            $hash = password_hash($senha, PASSWORD_DEFAULT);
+
+            $stmt = $conexao->prepare('INSERT INTO usuario (login, senha) VALUES (?, ?)');
+            $stmt->bind_param('ss', $login, $hash);
+
+            if ($stmt->execute()) {
+                $sucesso = 'Usuário cadastrado com sucesso.';
+                $login = '';
+            } else {
+                $erros[] = 'Não foi possível cadastrar o usuário.';
+            }
+
+            $stmt->close();
+        }
+    }
+}
+?>
+
 <!doctype html>
 <html lang="pt-BR">
   <head>
@@ -15,23 +79,18 @@
     <main class="container">
       <h1>Create your account:</h1>
 
-      <form id="form-cadastro">
+      <form id="form-cadastro"> <!-- Nome -->
         <div class="input-box">
           <i class="fa-regular fa-user"></i>
-          <input type="text" id="nome" placeholder="First name" />
+          <input type="text" id="login" placeholder="Name" />
         </div>
 
-        <div class="input-box">
-          <i class="fa-regular fa-user"></i>
-          <input type="text" id="sobrenome" placeholder="Last name" />
-        </div>
-
-        <div class="input-box">
+        <div class="input-box"> <!-- Email -->
           <i class="fa-regular fa-envelope"></i>
           <input type="email" id="email" placeholder="Email" />
         </div>
 
-        <div class="input-box senha-box">
+        <div class="input-box senha-box"> <!-- Senha -->
           <i class="fa-solid fa-lock"></i>
 
           <input type="password" id="senha" placeholder="Password" />
@@ -39,7 +98,7 @@
           <i class="fa-regular fa-eye olho" id="olhoSenha"></i>
         </div>
 
-        <div class="input-box senha-box">
+        <div class="input-box senha-box"> <!-- Confirmar senha -->
           <i class="fa-solid fa-lock"></i>
 
           <input
@@ -86,10 +145,8 @@
       });
 
       form.addEventListener("submit", function (event) {
-        event.preventDefault();
 
         const nome = document.getElementById("nome").value.trim();
-        const sobrenome = document.getElementById("sobrenome").value.trim();
         const email = document.getElementById("email").value.trim();
         const senhaValor = senha.value.trim();
         const confirmarValor = confirmarSenha.value.trim();
@@ -99,11 +156,6 @@
 
         if (nome === "") {
           mensagem.textContent = "Preencha o primeiro nome.";
-          return;
-        }
-
-        if (sobrenome === "") {
-          mensagem.textContent = "Preencha o sobrenome.";
           return;
         }
 

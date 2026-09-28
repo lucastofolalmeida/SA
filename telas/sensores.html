@@ -109,7 +109,7 @@
 
     <aside class="sidebar" id="sidebar">
       <nav>
-        <a href="locomotivas.html" class="side-link">
+        <a href="locomotivas.php" class="side-link">
           <img src="../assets/locomotiva.png" alt="" />
           <span>Locomotivas</span>
         </a>
@@ -252,6 +252,23 @@
         </section>
       </div>
     </main>
+    <script>
+      const menuBtn = document.getElementById("menuBtn");
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+
+      menuBtn.addEventListener("click", () => {
+        menuBtn.classList.toggle("active");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      });
+
+      overlay.addEventListener("click", () => {
+        sidebar.classList.remove("active");
+        menuBtn.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+    </script>
 
     <script src="../scripts/sensores.js"></script>
   </body>
