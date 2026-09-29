@@ -7,26 +7,26 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 require 'conexao.php';
 
 if (isset($_SESSION['id_usuario'])) {
-  header('Location: home.html');
+  header('Location: home.php');
   exit;
 }
 
 $erro = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $nome = trim($_POST['nome'] ?? '');
+  $login = trim($_POST['login'] ?? '');
   $senha = $_POST['senha'] ?? '';
 
-  if ($nome === '') {
+  if ($login === '') {
     $erro = 'Preencha o nome.';
   } elseif ($senha === '') {
     $erro = 'Preencha a senha.';
   } else {
     $stmt = $conexao->prepare(
-      'SELECT id_usuario, nome, senha FROM usuario WHERE nome = ? LIMIT 1'
+      'SELECT id_usuario, login, senha FROM usuario WHERE login = ? LIMIT 1'
     );
 
-    $stmt->bind_param('s', $nome);
+    $stmt->bind_param('s', $login);
     $stmt->execute();
 
     $usuario = $stmt->get_result()->fetch_assoc();
@@ -37,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       session_regenerate_id(true);
 
       $_SESSION['id_usuario'] = (int) $usuario['id_usuario'];
-      $_SESSION['usuario_nome'] = $usuario['nome'];
+      $_SESSION['usuario_login'] = $usuario['login'];
 
-      header('Location: home.html');
+      header('Location: home.php');
       exit;
     }
 
@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sigin</title>
+  <title>Login</title>
 
   <link rel="stylesheet" href="../styles/Login.css" />
 
@@ -72,8 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <i class="fa-regular fa-user"></i>
         <input
           type="text"
-          id="nome"
-          name="nome"
+          id="login"
+          name="login"
           placeholder="Enter name"
           required />
       </div>
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login">
       <p>
         Não tem uma conta?
-        <a href="sigin.html"> <em>create your account</em></a>
+        <a href="sigin.php"> <em>create your account</em></a>
       </p>
     </div>
   </main>
@@ -121,20 +121,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     });
 
     form.addEventListener("submit", function(event) {
-      const nome = document.getElementById("nome").value.trim();
+      const login = document.getElementById("login").value.trim();
       const senhaValor = senha.value;
 
       mensagem.textContent = "";
 
-      if (nome === "") {
+      if (login === "") {
         event.preventDefault();
-        mensagem.textContent = "Preencha o nome.";
-        return;
-      }
-
-      if (senhaValor.length < 6) {
-        event.preventDefault();
-        mensagem.textContent = "A senha deve ter pelo menos 6 caracteres.";
+        mensagem.textContent = "Preencha o l.";
         return;
       }
     });

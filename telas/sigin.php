@@ -5,8 +5,8 @@ $login = '';
 $email = '';
 $erros = [];
 $sucesso = '';
-$cargo = '';
-$status = '';
+$cargo = 'usuario comum';
+$status = 'ativo';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $login = trim($_POST['login'] ?? '');
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (count($erros) === 0) {
-        $stmt = $conexao->prepare('SELECT id FROM usuario WHERE login = ? LIMIT 1');
+        $stmt = $conexao->prepare('SELECT id_usuario FROM usuario WHERE login = ? LIMIT 1');
         $stmt->bind_param('s', $login);
         $stmt->execute();
         $existe = $stmt->get_result()->fetch_assoc();
@@ -46,12 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $hash = password_hash($senha, PASSWORD_DEFAULT);
 
-            $stmt = $conexao->prepare('INSERT INTO usuario (login, senha) VALUES (?, ?)');
-            $stmt->bind_param('ss', $login, $hash);
+            $stmt = $conexao->prepare('INSERT INTO usuario (login, senha, email, cargo, status) VALUES (?, ?, ?, ?, ?)');
+            $stmt->bind_param('sssss', $login, $hash, $email, $cargo, $status);
 
             if ($stmt->execute()) {
                 $sucesso = 'Usuário cadastrado com sucesso.';
                 $login = '';
+                $email = '';
             } else {
                 $erros[] = 'Não foi possível cadastrar o usuário.';
             }
@@ -79,21 +80,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <main class="container">
       <h1>Create your account:</h1>
 
-      <form id="form-cadastro"> <!-- Nome -->
+      <form id="form-cadastro" method="POST" action=""> <!-- Nome -->
         <div class="input-box">
           <i class="fa-regular fa-user"></i>
-          <input type="text" id="login" placeholder="Name" />
+          <input 
+          type="text" 
+          id="login" 
+          name="login" 
+          placeholder="Name" />
         </div>
 
         <div class="input-box"> <!-- Email -->
           <i class="fa-regular fa-envelope"></i>
-          <input type="email" id="email" placeholder="Email" />
+          <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="Email" />
         </div>
 
         <div class="input-box senha-box"> <!-- Senha -->
           <i class="fa-solid fa-lock"></i>
 
-          <input type="password" id="senha" placeholder="Password" />
+          <input 
+          type="password" 
+          id="senha" 
+          name="senha" 
+          placeholder="Password" />
 
           <i class="fa-regular fa-eye olho" id="olhoSenha"></i>
         </div>
@@ -104,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <input
             type="password"
             id="confirmarSenha"
+            name="confirmarSenha"
             placeholder="Confirm Password"
           />
 
@@ -146,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       form.addEventListener("submit", function (event) {
 
-        const nome = document.getElementById("nome").value.trim();
+        const nome = document.getElementById("login").value.trim();
         const email = document.getElementById("email").value.trim();
         const senhaValor = senha.value.trim();
         const confirmarValor = confirmarSenha.value.trim();
@@ -156,31 +170,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (nome === "") {
           mensagem.textContent = "Preencha o primeiro nome.";
+          event.preventDefault();
           return;
         }
 
         if (email === "") {
           mensagem.textContent = "Preencha o e-mail.";
+          event.preventDefault();
           return;
         }
 
         if (!email.includes("@")) {
           mensagem.textContent = "Digite um e-mail válido.";
+          event.preventDefault();
           return;
         }
 
         if (senhaValor.length < 6) {
           mensagem.textContent = "A senha deve ter pelo menos 6 caracteres.";
+          event.preventDefault();
           return;
         }
 
         if (confirmarValor === "") {
           mensagem.textContent = "Confirme sua senha.";
+          event.preventDefault();
           return;
         }
 
         if (senhaValor !== confirmarValor) {
           mensagem.textContent = "As senhas não coincidem.";
+          event.preventDefault();
           return;
         }
 

@@ -1,3 +1,10 @@
+<?php
+
+require 'proteger.php';
+require 'conexao.php';
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
   <head>
@@ -6,7 +13,7 @@
 
     <title>Sensores | FerroHub</title>
 
-    <link rel="stylesheet" href="../styles/sensores.css" />
+    <link rel="stylesheet" href="../styles/sensores.css?v=<?= filemtime(__DIR__ . '/../styles/sensores.css') ?>">
   </head>
 
   <body>
@@ -94,13 +101,15 @@
     ========================== -->
 
     <header class="topbar">
-      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-      <h1>FerroHub</h1>
+        <h1>FerroHub</h1>
+
+        <a class="logout-btn" href="logout.php">Sair</a>
     </header>
 
     <!-- =========================
@@ -114,17 +123,17 @@
           <span>Locomotivas</span>
         </a>
 
-        <a href="relatorios.html" class="side-link">
+        <a href="relatorios.php" class="side-link">
           <img src="../assets/relatorio.webp" alt="" />
           <span>Relatórios</span>
         </a>
 
-        <a href="sensores.html" class="side-link ativo">
+        <a href="sensores.php" class="side-link ativo">
           <img src="../assets/sensores.webp" alt="" />
           <span>Sensores</span>
         </a>
 
-        <a href="usuarios.html" class="side-link">
+        <a href="usuarios.php" class="side-link">
           <img src="../assets/usuarios.png" alt="" />
           <span>Usuários</span>
         </a>

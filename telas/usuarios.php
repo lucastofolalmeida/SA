@@ -1,39 +1,49 @@
+<?php
+
+require 'proteger.php';
+require 'conexao.php';
+
+?>
+
 <!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FerroHub - Usuários</title>
-    <link rel="stylesheet" href="../styles/usuarios.css" />
+    <link rel="stylesheet" href="../styles/usuarios.css?v=<?= filemtime(__DIR__ . '/../styles/usuarios.css') ?>">
   </head>
   <body>
     <header class="topbar">
-      <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <h1>FerroHub</h1>
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <h1>FerroHub</h1>
+
+        <a class="logout-btn" href="logout.php">Sair</a>
     </header>
 
     <aside class="sidebar" id="sidebar">
       <nav>
-        <a href="locomotivas.html" class="side-link">
+        <a href="locomotivas.php" class="side-link">
           <img src="../assets/locomotiva.png" alt="" />
           <span>Locomotivas</span>
         </a>
 
-        <a href="relatorios.html" class="side-link">
+        <a href="relatorios.php" class="side-link">
           <img src="../assets/relatorio.webp" alt="" />
           <span>Relatórios</span>
         </a>
 
-        <a href="sensores.html" class="side-link">
+        <a href="sensores.php" class="side-link">
           <img src="../assets/sensores.webp" alt="" />
           <span>Sensores</span>
         </a>
 
-        <a href="usuarios.html" class="side-link">
+        <a href="usuarios.php" class="side-link">
           <img src="../assets/usuarios.png" alt="" />
           <span>Usuários</span>
         </a>

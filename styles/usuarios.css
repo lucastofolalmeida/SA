@@ -327,3 +327,41 @@ body {
     height: 50px;
   }
 }
+.logout-btn {
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 18px;
+
+  background: #cceaff !important;
+  color: #003459 !important;
+
+  border: none;
+  border-radius: 20px;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #91caf2 !important;
+  color: #003459 !important;
+  transform: translateY(-50%) translateY(-2px);
+}
+
+.logout-btn:active {
+  transform: translateY(-50%) scale(0.96);
+}

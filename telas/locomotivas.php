@@ -44,7 +44,7 @@ $resultado = $conexao->query('SELECT * FROM trem ORDER BY prefixo');
 
     <title>FerroHub - Trens</title>
 
-    <link rel="stylesheet" href="../styles/locomotivas.css" />
+    <link rel="stylesheet" href="../styles/locomotivas.css?v=<?= filemtime(__DIR__ . '/../styles/locomotivas.css') ?>">
 </head>
 
 <body>
@@ -56,6 +56,8 @@ $resultado = $conexao->query('SELECT * FROM trem ORDER BY prefixo');
         </button>
 
         <h1>FerroHub</h1>
+
+        <a class="logout-btn" href="logout.php">Sair</a>
     </header>
 
     <aside class="sidebar" id="sidebar">
@@ -66,17 +68,17 @@ $resultado = $conexao->query('SELECT * FROM trem ORDER BY prefixo');
                 <span>Locomotivas</span>
             </a>
 
-            <a href="relatorios.html" class="side-link">
+            <a href="relatorios.php" class="side-link">
                 <img src="../assets/relatorio.webp" alt="" />
                 <span>Relatórios</span>
             </a>
 
-            <a href="sensores.html" class="side-link">
+            <a href="sensores.php" class="side-link">
                 <img src="../assets/sensores.webp" alt="" />
                 <span>Sensores</span>
             </a>
 
-            <a href="usuarios.html" class="side-link">
+            <a href="usuarios.php" class="side-link">
                 <img src="../assets/usuarios.png" alt="" />
                 <span>Usuários</span>
             </a>

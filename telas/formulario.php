@@ -93,21 +93,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $id > 0 ? 'Editar trem' : 'Novo trem' ?></title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles/formulario.css">
 </head>
 
 <body>
-    <header>
-        <span class="marca">Frota Ferroviária</span>
-        <nav>
-            <a href="trens.php">Trens</a>
-            <a href="painel.php">Painel</a>
-            <a href="leituras.php">Leituras</a>
-            <a href="simulador.php">Simulador</a>
-            <a href="relatorios.php">Relatórios</a>
-            <a href="logout.php">Sair</a>
-        </nav>
+    <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <h1>FerroHub</h1>
+
+        <a class="logout-btn" href="logout.php">Sair</a>
     </header>
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <a href="locomotivas.php" class="side-link">
+                <img src="../assets/locomotiva.png" alt="" />
+                <span>Locomotivas</span>
+            </a>
+
+            <a href="relatorios.php" class="side-link">
+                <img src="../assets/relatorio.webp" alt="" />
+                <span>Relatórios</span>
+            </a>
+
+            <a href="sensores.php" class="side-link">
+                <img src="../assets/sensores.webp" alt="" />
+                <span>Sensores</span>
+            </a>
+
+            <a href="usuarios.php" class="side-link">
+                <img src="../assets/usuarios.png" alt="" />
+                <span>Usuários</span>
+            </a>
+        </nav>
+    </aside>
+
+     <div class="overlay" id="overlay"></div>
 
     <main>
         <h1><?= $id > 0 ? 'Editar trem' : 'Novo trem' ?></h1>
@@ -174,6 +200,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="locomotivas.php" class="botao botao-secundario">Cancelar</a>
         </div>
     </form>
+
+    <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+
+        menuBtn.addEventListener("click", () => {
+            menuBtn.classList.toggle("active");
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        });
+
+        overlay.addEventListener("click", () => {
+            sidebar.classList.remove("active");
+            menuBtn.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+    </script>
 </body>
 
 </html>
