@@ -3,282 +3,249 @@
 require 'proteger.php';
 require 'conexao.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['excluir_id'])) {
+  $id = (int) $_POST['excluir_id'];
+
+  $stmt = $conexao->prepare('DELETE FROM sensor WHERE id_sensor = ?');
+  $stmt->bind_param('i', $id);
+
+  if ($stmt->execute()) {
+    $_SESSION['mensagem'] = 'Sensor excluído com sucesso.';
+
+    header('Location: sensores.php');
+
+    $stmt->close();
+
+    exit;
+  } else {
+    $_SESSION['mensagem'] = 'Erro ao excluir o sensor.';
+
+    header('Location: sensores.php');
+
+    $stmt->close();
+
+    exit;
+  }
+}
+
+$mensagem = $_SESSION['mensagem'] ?? '';
+unset($_SESSION['mensagem']);
+
+$resultado = $conexao->query('
+    SELECT 
+        sensor.id_sensor,
+        sensor.tipo,
+        sensor.ultima_leitura,
+        sensor.local,
+        trem.prefixo AS locomotiva
+    FROM sensor
+    LEFT JOIN trem ON sensor.id_trem = trem.id_trem
+    ORDER BY sensor.id_sensor
+');
+
+
 ?>
 
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Sensores | FerroHub</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="../styles/sensores.css?v=<?= filemtime(__DIR__ . '/../styles/sensores.css') ?>">
-  </head>
+  <title>FerroHub - Sensores</title>
 
-  <body>
-    <!-- =========================
-         MODAL
-    ========================== -->
+  <link rel="stylesheet" href="../styles/locomotivas.css?v=<?= filemtime(__DIR__ . '/../styles/locomotivas.css') ?>">
+</head>
 
-    <div class="modal" id="modal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div>
-            <span class="modal-subtitulo">GERENCIAMENTO</span>
-            <h2 id="tituloModal">Adicionar sensor</h2>
-          </div>
+<body>
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-          <button class="fechar-modal" id="fecharModal">&times;</button>
-        </div>
+    <h1>FerroHub</h1>
 
-        <label for="numeroSensor">Número do sensor</label>
-        <input type="number" id="numeroSensor" placeholder="Ex.: 10" />
+    <a class="logout-btn" href="logout.php">Sair</a>
+  </header>
 
-        <label for="tipoSensor">Tipo do sensor</label>
-        <input type="text" id="tipoSensor" placeholder="Ex.: Indutivo" />
+  <aside class="sidebar" id="sidebar">
+    <nav>
 
-        <label for="tremSensor">Trem vinculado</label>
-        <input type="text" id="tremSensor" placeholder="Ex.: Trem 01" />
+      <a href="locomotivas.php" class="side-link">
+        <img src="../assets/locomotiva.png" alt="" />
+        <span>Locomotivas</span>
+      </a>
 
-        <div class="linha-inputs">
-          <div>
-            <label for="valorLeitura">Última leitura</label>
+      <a href="relatorios.php" class="side-link">
+        <img src="../assets/relatorio.webp" alt="" />
+        <span>Relatórios</span>
+      </a>
 
-            <input
-              type="number"
-              id="valorLeitura"
-              step="any"
-              placeholder="Ex.: 72"
-            />
-          </div>
+      <a href="sensores.php" class="side-link">
+        <img src="../assets/sensores.webp" alt="" />
+        <span>Sensores</span>
+      </a>
 
-          <div>
-            <label for="unidadeLeitura">Unidade</label>
+      <a href="usuarios.php" class="side-link">
+        <img src="../assets/usuarios.png" alt="" />
+        <span>Usuários</span>
+      </a>
 
-            <input type="text" id="unidadeLeitura" placeholder="Ex.: mm" />
-          </div>
-        </div>
+    </nav>
+  </aside>
 
-        <div class="linha-inputs">
-          <div>
-            <label for="minimoEsperado">Mínimo esperado</label>
 
-            <input
-              type="number"
-              id="minimoEsperado"
-              step="any"
-              placeholder="Ex.: 0"
-            />
-          </div>
+  <div class="overlay" id="overlay"></div>
 
-          <div>
-            <label for="maximoEsperado">Máximo esperado</label>
+  <main class="dashboard">
 
-            <input
-              type="number"
-              id="maximoEsperado"
-              step="any"
-              placeholder="Ex.: 100"
-            />
-          </div>
-        </div>
+    <div class="titulo">
 
-        <div class="botoes-modal">
-          <button type="button" id="cancelar" class="btn-cancelar">
-            Cancelar
-          </button>
+      <h2>Sensores</h2>
 
-          <button type="button" id="salvar" class="btn-salvar">
-            Salvar sensor
-          </button>
-        </div>
-      </div>
+      <a href="formulario_sensor.php" class="botao botao-primario">
+        Novo sensor
+      </a>
+
     </div>
 
-    <!-- =========================
-         TOPO
-    ========================== -->
 
-    <header class="topbar">
-        <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+    <?php if ($mensagem !== ''): ?>
 
-        <h1>FerroHub</h1>
+      <p class="aviso">
+        <?= htmlspecialchars($mensagem) ?>
+      </p>
 
-        <a class="logout-btn" href="logout.php">Sair</a>
-    </header>
+    <?php endif; ?>
 
-    <!-- =========================
-         MENU LATERAL
-    ========================== -->
 
-    <aside class="sidebar" id="sidebar">
-      <nav>
-        <a href="locomotivas.php" class="side-link">
-          <img src="../assets/locomotiva.png" alt="" />
-          <span>Locomotivas</span>
-        </a>
+    <?php if ($resultado->num_rows === 0): ?>
 
-        <a href="relatorios.php" class="side-link">
-          <img src="../assets/relatorio.webp" alt="" />
-          <span>Relatórios</span>
-        </a>
+      <p class="vazio">
+        Nenhum sensor cadastrado.
+      </p>
 
-        <a href="sensores.php" class="side-link ativo">
-          <img src="../assets/sensores.webp" alt="" />
-          <span>Sensores</span>
-        </a>
+    <?php else: ?>
 
-        <a href="usuarios.php" class="side-link">
-          <img src="../assets/usuarios.png" alt="" />
-          <span>Usuários</span>
-        </a>
-      </nav>
-    </aside>
 
-    <div class="overlay" id="overlay"></div>
+      <table>
 
-    <!-- =========================
-         CONTEÚDO
-    ========================== -->
+        <thead>
 
-    <main>
-      <div class="container">
-        <div class="cabecalho-pagina">
-          <div>
-            <span class="eyebrow"> MONITORAMENTO </span>
+          <tr>
+            <th>ID</th>
+            <th>Tipo</th>
+            <th>Última leitura</th>
+            <th>Local</th>
+            <th>Locomotiva associada</th>
+            <th colspan="2">Ações</th>
+          </tr>
 
-            <h2 class="titulo">Sensores</h2>
+        </thead>
 
-            <p class="descricao">
-              Acompanhe os sensores cadastrados e suas últimas leituras.
-            </p>
-          </div>
 
-          <button class="btn-adicionar" id="btnAdicionar">
-            <span>+</span>
-            Adicionar sensor
-          </button>
-        </div>
+        <tbody>
 
-        <!-- =========================
-                 RESUMO
-            ========================== -->
+          <?php while ($linha = $resultado->fetch_assoc()): ?>
 
-        <section class="resumo">
-          <div class="resumo-card">
-            <div class="resumo-icone azul">
-              <span>◉</span>
-            </div>
+            <tr>
 
-            <div>
-              <strong id="totalSensores">0</strong>
-              <span>Total de sensores</span>
-            </div>
-          </div>
+              <td>
+                <?= (int) $linha['id_sensor'] ?>
+              </td>
 
-          <div class="resumo-card">
-            <div class="resumo-icone verde">
-              <span>✓</span>
-            </div>
 
-            <div>
-              <strong id="sensoresNormais">0</strong>
-              <span>Dentro do intervalo</span>
-            </div>
-          </div>
+              <td>
+                <?= htmlspecialchars($linha['tipo']) ?>
+              </td>
 
-          <div class="resumo-card">
-            <div class="resumo-icone vermelho">
-              <span>!</span>
-            </div>
 
-            <div>
-              <strong id="sensoresAlerta">0</strong>
-              <span>Fora do intervalo</span>
-            </div>
-          </div>
-        </section>
+              <td>
+                <?= htmlspecialchars($linha['ultima_leitura']) ?>
+              </td>
 
-        <!-- =========================
-                 FILTROS
-            ========================== -->
 
-        <section class="filtros">
-          <div class="campo-busca">
-            <span>⌕</span>
+              <td>
+                <?= htmlspecialchars($linha['local']) ?>
+              </td>
 
-            <input
-              type="text"
-              id="buscaSensor"
-              placeholder="Buscar sensor..."
-            />
-          </div>
 
-          <select id="filtroTrem">
-            <option value="todos">Todos os trens</option>
-          </select>
+              <td>
+              <td>
+                <?= htmlspecialchars($linha['locomotiva'] ?? 'Não associada') ?>
+              </td>
 
-          <select id="filtroTipo">
-            <option value="todos">Todos os tipos</option>
-          </select>
+              </td>
 
-          <select id="filtroStatus">
-            <option value="todos">Todas as situações</option>
 
-            <option value="normal">Dentro do intervalo</option>
+              <td class="acoes">
 
-            <option value="alerta">Fora do intervalo</option>
-          </select>
-        </section>
+                <a
+                  href="formulario.php?id=<?= (int) $linha['id_sensor'] ?>"
+                  class="botao botao-secundario">
+                  Editar
+                </a>
 
-        <!-- =========================
-                 PAINEL
-            ========================== -->
 
-        <section class="painel">
-          <div class="painel-header">
-            <div>
-              <h3>Sensores cadastrados</h3>
+                <form
+                  method="post"
+                  onsubmit="return confirm('Confirma a exclusão do sensor?');">
 
-              <span id="contadorResultados"> 0 sensores encontrados </span>
-            </div>
-          </div>
+                  <input
+                    type="hidden"
+                    name="excluir_id"
+                    value="<?= (int) $linha['id_sensor'] ?>">
 
-          <div class="grid" id="gridSensores"></div>
+                  <button
+                    type="submit"
+                    class="botao botao-perigo">
+                    Excluir
+                  </button>
 
-          <div class="estado-vazio" id="estadoVazio" style="display: none">
-            <div class="vazio-icone">◌</div>
+                </form>
 
-            <h3>Nenhum sensor encontrado</h3>
+              </td>
 
-            <p>Tente alterar os filtros ou cadastrar um novo sensor.</p>
-          </div>
-        </section>
-      </div>
-    </main>
-    <script>
-      const menuBtn = document.getElementById("menuBtn");
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
+            </tr>
 
-      menuBtn.addEventListener("click", () => {
-        menuBtn.classList.toggle("active");
-        sidebar.classList.toggle("active");
-        overlay.classList.toggle("active");
-      });
+          <?php endwhile; ?>
 
-      overlay.addEventListener("click", () => {
-        sidebar.classList.remove("active");
-        menuBtn.classList.remove("active");
-        overlay.classList.remove("active");
-      });
-    </script>
+        </tbody>
 
-    <script src="../scripts/sensores.js"></script>
-  </body>
+      </table>
+
+
+    <?php endif; ?>
+
+  </main>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+
+    menuBtn.addEventListener("click", () => {
+
+      menuBtn.classList.toggle("active");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+
+    });
+
+
+    overlay.addEventListener("click", () => {
+
+      sidebar.classList.remove("active");
+      menuBtn.classList.remove("active");
+      overlay.classList.remove("active");
+
+    });
+  </script>
+
+</body>
+
 </html>
