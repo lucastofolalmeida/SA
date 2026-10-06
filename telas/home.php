@@ -75,6 +75,12 @@ require 'conexao.php';
           <span>Relatórios</span>
         </a>
 
+        <a href="rotas.php" class="card">
+          <img src="../assets/Rotas.png" alt="" />
+
+          <span>Rotas</span>
+        </a>
+
         <a href="usuarios.php" class="card">
           <img src="../assets/usuarios.png" alt="" />
 

@@ -1,0 +1,21 @@
+.caixa_alerta {
+  width: 100%;
+  height: 56px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 0 18px;
+}
+
+.verde {
+  background: #6fff6a;
+}
+
+.amarelo {
+  background: #ffee00;
+}
+
+.vermelho {
+  background: #ff0000;
+}

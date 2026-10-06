@@ -17,12 +17,14 @@ $tipo_opcoes = [];
 $resultado_enum = $conexao->query("SHOW COLUMNS FROM sensor LIKE 'tipo'");
 
 if ($resultado_enum && $resultado_enum->num_rows > 0) {
-
     $coluna_tipo = $resultado_enum->fetch_assoc();
 
     if (preg_match("/^enum\('(.*)'\)$/", $coluna_tipo['Type'], $matches)) {
-
         $tipo_opcoes = str_getcsv($matches[1], ',', "'");
+
+        $tipo_opcoes = array_map(function ($tipo) {
+            return trim($tipo, " '\"");
+        }, $tipo_opcoes);
     }
 }
 
@@ -260,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <img
                     src="../assets/locomotiva.png"
-                    alt="">
+                    alt="" />
 
                 <span>Locomotivas</span>
 
@@ -273,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <img
                     src="../assets/relatorio.webp"
-                    alt="">
+                    alt="" />
 
                 <span>Relatórios</span>
 
@@ -286,9 +288,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <img
                     src="../assets/sensores.webp"
-                    alt="">
+                    alt="" />
 
                 <span>Sensores</span>
+
+            </a>
+
+
+            <a
+                href="rotas.php"
+                class="side-link">
+
+                <img
+                    src="../assets/rotas.png"
+                    alt="" />
+
+                <span>Rotas</span>
 
             </a>
 
@@ -299,7 +314,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <img
                     src="../assets/usuarios.png"
-                    alt="">
+                    alt="" />
 
                 <span>Usuários</span>
 

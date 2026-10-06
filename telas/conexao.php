@@ -23,7 +23,7 @@ if ($resultado->num_rows === 0) {
     $cargo = "admin";
     $status = "ativo";
 
-    $comando = $conexao->prepare("INSERT INTO usuario (nome, email, senha, cargo, status) VALUES (?, ?, ?, ?, ?)");
-    $comando->bind_param("sssss", $nome, $email, $hash, $cargo, $status);
+    $comando = $conexao->prepare("INSERT INTO usuario (login, email, senha, cargo, status) VALUES (?, ?, ?, ?, ?)");
+    $comando->bind_param("sssss", $login, $email, $hash, $cargo, $status);
     $comando->execute();
 }

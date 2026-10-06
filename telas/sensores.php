@@ -171,20 +171,16 @@ $resultado = $conexao->query('
               <td>
                 <?= htmlspecialchars($linha['local']) ?>
               </td>
-
-
-              <td>
+              
               <td>
                 <?= htmlspecialchars($linha['locomotiva'] ?? 'Não associada') ?>
-              </td>
-
               </td>
 
 
               <td class="acoes">
 
                 <a
-                  href="formulario.php?id=<?= (int) $linha['id_sensor'] ?>"
+                  href="formulario_sensor.php?id=<?= (int) $linha['id_sensor'] ?>"
                   class="botao botao-secundario">
                   Editar
                 </a>
@@ -244,6 +240,7 @@ $resultado = $conexao->query('
       overlay.classList.remove("active");
 
     });
+
   </script>
 
 </body>
