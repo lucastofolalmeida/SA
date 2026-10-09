@@ -109,31 +109,97 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a class="logout-btn" href="logout.php">Sair</a>
     </header>
 
-    <aside class="sidebar" id="sidebar">
+    <aside
+        class="sidebar"
+        id="sidebar">
+
         <nav>
-            <a href="locomotivas.php" class="side-link">
-                <img src="../assets/locomotiva.png" alt="" />
-                <span>Locomotivas</span>
+
+
+            <a
+                href="locomotivas.php"
+                class="side-link">
+
+                <img
+                    src="../assets/locomotiva.png"
+                    alt="">
+
+                <span>
+                    Locomotivas
+                </span>
+
             </a>
 
-            <a href="relatorios.php" class="side-link">
-                <img src="../assets/relatorio.webp" alt="" />
-                <span>Relatórios</span>
+
+
+            <a
+                href="relatorios.php"
+                class="side-link">
+
+                <img
+                    src="../assets/relatorio.webp"
+                    alt="">
+
+                <span>
+                    Relatórios
+                </span>
+
             </a>
 
-            <a href="sensores.php" class="side-link">
-                <img src="../assets/sensores.webp" alt="" />
-                <span>Sensores</span>
+
+
+            <a
+                href="sensores.php"
+                class="side-link">
+
+                <img
+                    src="../assets/sensores.webp"
+                    alt="">
+
+                <span>
+                    Sensores
+                </span>
+
             </a>
 
-            <a href="usuarios.php" class="side-link">
-                <img src="../assets/usuarios.png" alt="" />
-                <span>Usuários</span>
+
+
+            <a
+                href="rotas.php"
+                class="side-link">
+
+                <img
+                    src="../assets/rotas.png"
+                    alt="">
+
+                <span>
+                    Rotas
+                </span>
+
             </a>
+
+
+
+            <a
+                href="usuarios.php"
+                class="side-link">
+
+                <img
+                    src="../assets/usuarios.png"
+                    alt="">
+
+                <span>
+                    Usuários
+                </span>
+
+            </a>
+
+
         </nav>
+
     </aside>
 
-     <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay"></div>
 
     <main>
         <h1><?= $id > 0 ? 'Editar trem' : 'Novo trem' ?></h1>

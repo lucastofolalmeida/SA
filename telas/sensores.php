@@ -71,31 +71,95 @@ $resultado = $conexao->query('
     <a class="logout-btn" href="logout.php">Sair</a>
   </header>
 
-  <aside class="sidebar" id="sidebar">
-    <nav>
+  <aside
+        class="sidebar"
+        id="sidebar">
 
-      <a href="locomotivas.php" class="side-link">
-        <img src="../assets/locomotiva.png" alt="" />
-        <span>Locomotivas</span>
-      </a>
+        <nav>
 
-      <a href="relatorios.php" class="side-link">
-        <img src="../assets/relatorio.webp" alt="" />
-        <span>Relatórios</span>
-      </a>
 
-      <a href="sensores.php" class="side-link">
-        <img src="../assets/sensores.webp" alt="" />
-        <span>Sensores</span>
-      </a>
+            <a
+                href="locomotivas.php"
+                class="side-link">
 
-      <a href="usuarios.php" class="side-link">
-        <img src="../assets/usuarios.png" alt="" />
-        <span>Usuários</span>
-      </a>
+                <img
+                    src="../assets/locomotiva.png"
+                    alt="">
 
-    </nav>
-  </aside>
+                <span>
+                    Locomotivas
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="relatorios.php"
+                class="side-link">
+
+                <img
+                    src="../assets/relatorio.webp"
+                    alt="">
+
+                <span>
+                    Relatórios
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="sensores.php"
+                class="side-link">
+
+                <img
+                    src="../assets/sensores.webp"
+                    alt="">
+
+                <span>
+                    Sensores
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="rotas.php"
+                class="side-link">
+
+                <img
+                    src="../assets/rotas.png"
+                    alt="">
+
+                <span>
+                    Rotas
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="usuarios.php"
+                class="side-link">
+
+                <img
+                    src="../assets/usuarios.png"
+                    alt="">
+
+                <span>
+                    Usuários
+                </span>
+
+            </a>
+
+
+        </nav>
+
+    </aside>
 
 
   <div class="overlay" id="overlay"></div>
