@@ -5,176 +5,185 @@ require 'conexao.php';
 
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FerroHub</title>
 
-    <link rel="stylesheet" href="../styles/home.css?v=<?= filemtime(__DIR__ . '/../styles/home.css') ?>"/>
-  </head>
-  <body>
-    <header class="topbar">
-        <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FerroHub</title>
 
-        <h1>FerroHub</h1>
+  <link rel="stylesheet" href="../styles/home.css?v=<?= filemtime(__DIR__ . '/../styles/home.css') ?>" />
+</head>
 
-        <a class="logout-btn" href="logout.php">Sair</a>
-    </header>
+<body>
+  <header class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
-    <aside
-        class="sidebar"
-        id="sidebar">
+    <h1>FerroHub</h1>
 
-        <nav>
+    <a class="leituras-btn" href="leituras.php">
+      <img src="../assets/sino.png" alt="">
+      <span>Leituras</span>
+    </a>
 
+    <a class="logout-btn" href="logout.php">Sair</a>
 
-            <a
-                href="locomotivas.php"
-                class="side-link">
+  </header>
 
-                <img
-                    src="../assets/locomotiva.png"
-                    alt="">
+  <aside
+    class="sidebar"
+    id="sidebar">
 
-                <span>
-                    Locomotivas
-                </span>
-
-            </a>
+    <nav>
 
 
+      <a
+        href="locomotivas.php"
+        class="side-link">
 
-            <a
-                href="relatorios.php"
-                class="side-link">
+        <img
+          src="../assets/locomotiva.png"
+          alt="">
 
-                <img
-                    src="../assets/relatorio.webp"
-                    alt="">
+        <span>
+          Locomotivas
+        </span>
 
-                <span>
-                    Relatórios
-                </span>
-
-            </a>
+      </a>
 
 
 
-            <a
-                href="sensores.php"
-                class="side-link">
+      <a
+        href="relatorios.php"
+        class="side-link">
 
-                <img
-                    src="../assets/sensores.webp"
-                    alt="">
+        <img
+          src="../assets/relatorio.webp"
+          alt="">
 
-                <span>
-                    Sensores
-                </span>
+        <span>
+          Relatórios
+        </span>
 
-            </a>
-
-
-
-            <a
-                href="rotas.php"
-                class="side-link">
-
-                <img
-                    src="../assets/rotas.png"
-                    alt="">
-
-                <span>
-                    Rotas
-                </span>
-
-            </a>
+      </a>
 
 
 
-            <a
-                href="usuarios.php"
-                class="side-link">
+      <a
+        href="sensores.php"
+        class="side-link">
 
-                <img
-                    src="../assets/usuarios.png"
-                    alt="">
+        <img
+          src="../assets/sensores.webp"
+          alt="">
 
-                <span>
-                    Usuários
-                </span>
+        <span>
+          Sensores
+        </span>
 
-            </a>
+      </a>
 
 
-        </nav>
 
-    </aside>
+      <a
+        href="rotas.php"
+        class="side-link">
 
-    <div class="overlay" id="overlay"></div>
+        <img
+          src="../assets/rotas.png"
+          alt="">
 
-    <main class="container">
-      <h2>Bem vindo à Central de monitoramento:</h2>
+        <span>
+          Rotas
+        </span>
 
-      <section class="cards">
-        <a href="sensores.php" class="card">
-          <p class="alarme ativo sensor">⚠</p>
-          <img src="../assets/sensores.webp" alt="" />
+      </a>
 
-          <span>Sensores</span>
-        </a>
 
-        <a href="locomotivas.php" class="card">
-          <p class="alarme ativo">⚠</p>
-          <img src="../assets/locomotiva.png" alt="" />
 
-          <span>Locomotivas</span>
-        </a>
+      <a
+        href="usuarios.php"
+        class="side-link">
 
-        <a href="relatorios.php" class="card">
-          <img src="../assets/relatorio.webp" alt="" />
+        <img
+          src="../assets/usuarios.png"
+          alt="">
 
-          <span>Relatórios</span>
-        </a>
+        <span>
+          Usuários
+        </span>
 
-        <a href="rotas.php" class="card">
-          <img src="../assets/Rotas.png" alt="" />
+      </a>
 
-          <span>Rotas</span>
-        </a>
 
-        <a href="usuarios.php" class="card">
-          <img src="../assets/usuarios.png" alt="" />
+    </nav>
 
-          <span>Usuários</span>
-        </a>
-      </section>
+  </aside>
 
-      <div class="logo-area">
-        <img src="../assets/logo.webp" alt="Logo FerroHub" />
-      </div>
-    </main>
+  <div class="overlay" id="overlay"></div>
 
-    <script>
-      const menuBtn = document.getElementById("menuBtn");
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("overlay");
+  <main class="container">
+    <h2>Bem vindo à Central de monitoramento:</h2>
 
-      menuBtn.addEventListener("click", () => {
-        menuBtn.classList.toggle("active");
-        sidebar.classList.toggle("active");
-        overlay.classList.toggle("active");
-      });
+    <section class="cards">
+      <a href="sensores.php" class="card">
+        <p class="alarme ativo sensor">⚠</p>
+        <img src="../assets/sensores.webp" alt="" />
 
-      overlay.addEventListener("click", () => {
-        sidebar.classList.remove("active");
-        menuBtn.classList.remove("active");
-        overlay.classList.remove("active");
-      });
-    </script>
-  </body>
+        <span>Sensores</span>
+      </a>
+
+      <a href="locomotivas.php" class="card">
+        <p class="alarme ativo">⚠</p>
+        <img src="../assets/locomotiva.png" alt="" />
+
+        <span>Locomotivas</span>
+      </a>
+
+      <a href="relatorios.php" class="card">
+        <img src="../assets/relatorio.webp" alt="" />
+
+        <span>Relatórios</span>
+      </a>
+
+      <a href="rotas.php" class="card">
+        <img src="../assets/Rotas.png" alt="" />
+
+        <span>Rotas</span>
+      </a>
+
+      <a href="usuarios.php" class="card">
+        <img src="../assets/usuarios.png" alt="" />
+
+        <span>Usuários</span>
+      </a>
+    </section>
+
+    <div class="logo-area">
+      <img src="../assets/logo.webp" alt="Logo FerroHub" />
+    </div>
+  </main>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    menuBtn.addEventListener("click", () => {
+      menuBtn.classList.toggle("active");
+      sidebar.classList.toggle("active");
+      overlay.classList.toggle("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      sidebar.classList.remove("active");
+      menuBtn.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+  </script>
+</body>
+
 </html>

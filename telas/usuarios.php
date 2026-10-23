@@ -16,17 +16,41 @@ require 'conexao.php';
 </head>
 
 <body>
-  <header class="topbar">
-    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+   <header class="topbar">
 
-    <h1>FerroHub</h1>
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Abrir menu"
+            aria-controls="sidebar"
+            aria-expanded="false">
 
-    <a class="logout-btn" href="logout.php">Sair</a>
-  </header>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <a href="home.php">
+            <h1>FerroHub</h1>
+        </a>
+
+        <a class="leituras-btn" href="leituras.php">
+            <img src="../assets/sino.png" alt="">
+            <span>Leituras</span>
+        </a>
+
+        <a
+            class="logout-btn"
+            href="logout.php">
+
+            Sair
+
+        </a>
+
+    </header>
 
   <aside
     class="sidebar"

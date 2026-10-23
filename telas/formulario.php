@@ -97,16 +97,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <header class="topbar">
-        <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+     <header class="topbar">
+
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Abrir menu"
+            aria-controls="sidebar"
+            aria-expanded="false">
+
             <span></span>
             <span></span>
             <span></span>
+
         </button>
 
-        <h1>FerroHub</h1>
 
-        <a class="logout-btn" href="logout.php">Sair</a>
+        <a href="home.php">
+            <h1>FerroHub</h1>
+        </a>
+
+        <a class="leituras-btn" href="leituras.php">
+            <img src="../assets/sino.png" alt="">
+            <span>Leituras</span>
+        </a>
+
+        <a
+            class="logout-btn"
+            href="logout.php">
+
+            Sair
+
+        </a>
+
     </header>
 
     <aside

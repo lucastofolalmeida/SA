@@ -177,12 +177,15 @@ $resultado_trem = $conexao->query('
 <body>
 
 
-    <header class="topbar">
+     <header class="topbar">
 
         <button
             class="menu-btn"
             id="menuBtn"
-            aria-label="Abrir menu">
+            type="button"
+            aria-label="Abrir menu"
+            aria-controls="sidebar"
+            aria-expanded="false">
 
             <span></span>
             <span></span>
@@ -191,13 +194,21 @@ $resultado_trem = $conexao->query('
         </button>
 
 
-        <h1>FerroHub</h1>
+        <a href="home.php">
+            <h1>FerroHub</h1>
+        </a>
 
+        <a class="leituras-btn" href="leituras.php">
+            <img src="../assets/sino.png" alt="">
+            <span>Leituras</span>
+        </a>
 
         <a
             class="logout-btn"
             href="logout.php">
+
             Sair
+
         </a>
 
     </header>

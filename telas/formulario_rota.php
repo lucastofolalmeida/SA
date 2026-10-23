@@ -467,8 +467,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </button>
 
 
-        <h1>FerroHub</h1>
+        <a href="home.php">
+            <h1>FerroHub</h1>
+        </a>
 
+        <a class="leituras-btn" href="leituras.php">
+            <img src="../assets/sino.png" alt="">
+            <span>Leituras</span>
+        </a>
 
         <a
             class="logout-btn"

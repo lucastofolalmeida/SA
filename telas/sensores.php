@@ -59,107 +59,131 @@ $resultado = $conexao->query('
 </head>
 
 <body>
-  <header class="topbar">
-    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+  < <header class="topbar">
 
-    <h1>FerroHub</h1>
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Abrir menu"
+            aria-controls="sidebar"
+            aria-expanded="false">
 
-    <a class="logout-btn" href="logout.php">Sair</a>
-  </header>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <a href="home.php">
+            <h1>FerroHub</h1>
+        </a>
+
+        <a class="leituras-btn" href="leituras.php">
+            <img src="../assets/sino.png" alt="">
+            <span>Leituras</span>
+        </a>
+
+        <a
+            class="logout-btn"
+            href="logout.php">
+
+            Sair
+
+        </a>
+
+    </header>
 
   <aside
-        class="sidebar"
-        id="sidebar">
+    class="sidebar"
+    id="sidebar">
 
-        <nav>
-
-
-            <a
-                href="locomotivas.php"
-                class="side-link">
-
-                <img
-                    src="../assets/locomotiva.png"
-                    alt="">
-
-                <span>
-                    Locomotivas
-                </span>
-
-            </a>
+    <nav>
 
 
+      <a
+        href="locomotivas.php"
+        class="side-link">
 
-            <a
-                href="relatorios.php"
-                class="side-link">
+        <img
+          src="../assets/locomotiva.png"
+          alt="">
 
-                <img
-                    src="../assets/relatorio.webp"
-                    alt="">
+        <span>
+          Locomotivas
+        </span>
 
-                <span>
-                    Relatórios
-                </span>
-
-            </a>
+      </a>
 
 
 
-            <a
-                href="sensores.php"
-                class="side-link">
+      <a
+        href="relatorios.php"
+        class="side-link">
 
-                <img
-                    src="../assets/sensores.webp"
-                    alt="">
+        <img
+          src="../assets/relatorio.webp"
+          alt="">
 
-                <span>
-                    Sensores
-                </span>
+        <span>
+          Relatórios
+        </span>
 
-            </a>
-
-
-
-            <a
-                href="rotas.php"
-                class="side-link">
-
-                <img
-                    src="../assets/rotas.png"
-                    alt="">
-
-                <span>
-                    Rotas
-                </span>
-
-            </a>
+      </a>
 
 
 
-            <a
-                href="usuarios.php"
-                class="side-link">
+      <a
+        href="sensores.php"
+        class="side-link">
 
-                <img
-                    src="../assets/usuarios.png"
-                    alt="">
+        <img
+          src="../assets/sensores.webp"
+          alt="">
 
-                <span>
-                    Usuários
-                </span>
+        <span>
+          Sensores
+        </span>
 
-            </a>
+      </a>
 
 
-        </nav>
 
-    </aside>
+      <a
+        href="rotas.php"
+        class="side-link">
+
+        <img
+          src="../assets/rotas.png"
+          alt="">
+
+        <span>
+          Rotas
+        </span>
+
+      </a>
+
+
+
+      <a
+        href="usuarios.php"
+        class="side-link">
+
+        <img
+          src="../assets/usuarios.png"
+          alt="">
+
+        <span>
+          Usuários
+        </span>
+
+      </a>
+
+
+    </nav>
+
+  </aside>
 
 
   <div class="overlay" id="overlay"></div>
@@ -235,7 +259,7 @@ $resultado = $conexao->query('
               <td>
                 <?= htmlspecialchars($linha['local']) ?>
               </td>
-              
+
               <td>
                 <?= htmlspecialchars($linha['locomotiva'] ?? 'Não associada') ?>
               </td>
@@ -304,7 +328,6 @@ $resultado = $conexao->query('
       overlay.classList.remove("active");
 
     });
-
   </script>
 
 </body>
