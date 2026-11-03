@@ -485,3 +485,87 @@ a {
     width: 28px;
   }
 }
+
+
+/* Resumo dos alertas */
+.resumo-alertas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin: 0 auto 24px;
+}
+
+/* Cartões menores e simples */
+.card-resumo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    min-width: 235px;
+    padding: 12px 18px;
+
+    border-radius: 10px;
+    color: white;
+}
+
+/* Alerta crítico */
+.card-resumo.critico {
+    background: #d6251c;
+}
+
+/* Alerta de atenção */
+.card-resumo.atencao {
+    background: #f1b418;
+    color: #252525;
+}
+
+/* Ícones discretos */
+.icone-alerta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Texto */
+.card-resumo p {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Número ao lado */
+.card-resumo strong {
+    font-size: 1.4rem;
+    line-height: 1;
+    margin-left: 2px;
+}
+
+/* Celulares */
+@media (max-width: 600px) {
+    .resumo-alertas {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card-resumo {
+        width: 100%;
+        max-width: 320px;
+        min-width: 0;
+        justify-content: space-between;
+    }
+}
+

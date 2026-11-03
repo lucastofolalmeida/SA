@@ -3,11 +3,11 @@
 
 require_once __DIR__ . '/conexao.php';
 
+// Limites utilizados para classificação dos alertas.
 $limiteVelocidade = 80.00;
 $limiteTemperatura = 105.00;
 $limiteVibracao = 7.00;
 
-// Regras compatíveis com os sensores existentes no banco.
 $regras = [
     'velocidade' => [
         'rotulo' => 'Velocidade',
@@ -29,6 +29,7 @@ $regras = [
     ]
 ];
 
+// Função de proteção para exibição de valores no HTML.
 if (!function_exists('e')) {
     function e($valor)
     {
@@ -40,7 +41,9 @@ if (!function_exists('e')) {
     }
 }
 
-// Busca as leituras, seus sensores e as locomotivas.
+// Busca as leituras, incluindo sensores vinculados a rotas.
+// LEFT JOIN permite que sensores sem locomotiva diretamente
+// associada também sejam incluídos.
 $sql = "
     SELECT
         l.id_relatorio,
@@ -49,23 +52,38 @@ $sql = "
         l.nivel_de_combustivel,
         l.vibracao_mm,
         l.data_hora,
+
+        s.id_sensor,
         s.tipo AS tipo_sensor,
         s.nome AS nome_sensor,
+        s.local AS local_sensor,
+
         t.id_trem,
         t.modelo,
-        t.prefixo
+        t.prefixo,
+
+        r.id_rota,
+        r.origem,
+        r.destino
+
     FROM leituras AS l
+
     INNER JOIN sensor AS s
         ON l.id_sensor = s.id_sensor
-    INNER JOIN trem AS t
+
+    LEFT JOIN trem AS t
         ON s.id_trem = t.id_trem
+
+    LEFT JOIN rotas AS r
+        ON s.id_rota = r.id_rota
+
     ORDER BY l.data_hora DESC
 ";
 
 $consulta = $conexao->query($sql);
 
 if (!$consulta) {
-    die('Erro ao consultar as leituras: ' . $conexao->error);
+    die('Erro ao consultar as leituras.');
 }
 
 $alertas = [];
@@ -75,7 +93,7 @@ while ($leitura = $consulta->fetch_assoc()) {
 
     $tipo = $leitura['tipo_sensor'];
 
-    // Ignora tipos sem regra de classificação definida.
+    // Ignora tipos sem regra de alerta configurada.
     if (!isset($regras[$tipo])) {
         continue;
     }
@@ -83,7 +101,7 @@ while ($leitura = $consulta->fetch_assoc()) {
     $regra = $regras[$tipo];
     $valorBruto = $leitura[$regra['campo']];
 
-    // Não classifica valores nulos como se fossem zero.
+    // Ignora valores nulos ou inválidos.
     if ($valorBruto === null || !is_numeric($valorBruto)) {
         continue;
     }
@@ -91,21 +109,40 @@ while ($leitura = $consulta->fetch_assoc()) {
     $valor = (float) $valorBruto;
     $limite = $regra['limite'];
 
-    // Leituras dentro do limite não geram alertas.
+    // Só gera alerta quando o limite é ultrapassado.
     if ($valor <= $limite) {
         continue;
     }
 
+    // Define a severidade.
     $severidade = $valor > 2 * $limite
         ? 'critica'
         : 'atencao';
 
+    // Identifica a origem da leitura.
+    if (!empty($leitura['prefixo'])) {
+        $origemSensor = $leitura['prefixo'];
+    } elseif (!empty($leitura['modelo'])) {
+        $origemSensor = $leitura['modelo'];
+    } elseif (
+        !empty($leitura['origem'])
+        && !empty($leitura['destino'])
+    ) {
+        $origemSensor =
+            $leitura['origem'] . ' → ' . $leitura['destino'];
+    } else {
+        $origemSensor = $leitura['nome_sensor'];
+    }
+
     $alertas[] = [
-        'id_relatorio' => $leitura['id_relatorio'],
+        'id_relatorio' => (int) $leitura['id_relatorio'],
+        'id_sensor' => (int) $leitura['id_sensor'],
         'tipo' => $tipo,
         'rotulo' => $regra['rotulo'],
-        'locomotiva' => $leitura['prefixo']
-            ?: $leitura['modelo'],
+        'locomotiva' => $origemSensor,
+        'nome_sensor' => $leitura['nome_sensor'],
+        'local_sensor' => $leitura['local_sensor'],
+        'id_rota' => $leitura['id_rota'],
         'data_hora' => $leitura['data_hora'],
         'valor' => $valor,
         'limite' => $limite,
@@ -114,7 +151,7 @@ while ($leitura = $consulta->fetch_assoc()) {
     ];
 }
 
-// Recebe e valida os filtros da página.
+// Recebe e valida os filtros.
 $filtroSeveridade = $_GET['severidade'] ?? '';
 $filtroTipo = $_GET['tipo'] ?? '';
 
@@ -133,7 +170,7 @@ if (
     $filtroTipo = '';
 }
 
-// Aplica os filtros sem alterar o total geral.
+// Aplica os filtros sem alterar os totais gerais.
 $visiveis = array_values(array_filter(
     $alertas,
     function ($alerta) use (
@@ -153,15 +190,15 @@ $visiveis = array_values(array_filter(
     }
 ));
 
-// Calcula os totais gerais.
+// Calcula os totais gerais de alertas.
 $totalCriticos = count(array_filter(
     $alertas,
-    fn($a) => $a['severidade'] === 'critica'
+    fn($alerta) => $alerta['severidade'] === 'critica'
 ));
 
 $totalAtencao = count(array_filter(
     $alertas,
-    fn($a) => $a['severidade'] === 'atencao'
+    fn($alerta) => $alerta['severidade'] === 'atencao'
 ));
 
 ?>
