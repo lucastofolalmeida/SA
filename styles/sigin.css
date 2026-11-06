@@ -1,3 +1,76 @@
+.btn-senha {
+      margin-top: 10px;
+      padding: 6px 12px;
+      background-color: #2196F3;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .btn-senha:hover {
+      background-color: #0b7dda;
+    }
+    .modal-senha {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      border-radius: 8px;
+      z-index: 1000;
+      width: 90%;
+      max-width: 400px;
+    }
+    .modal-senha.active {
+      display: block;
+    }
+    .modal-senha h3 {
+      margin-top: 0;
+    }
+    .modal-senha .form-group {
+      margin-bottom: 15px;
+    }
+    .modal-senha label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .modal-senha input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .modal-actions button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-cancelar {
+      background-color: #ccc;
+    }
+    .btn-salvar {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .alert-msg {
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+    .alert-success { background-color: #d4edda; color: #155724; }
+    .alert-error { background-color: #f8d7da; color: #721c24; }
+
 * {
   margin: 0;
   padding: 0;

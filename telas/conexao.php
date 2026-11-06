@@ -16,7 +16,7 @@ $conexao->set_charset('utf8mb4');
 $resultado = $conexao->query("SELECT * FROM usuario");
 
 if ($resultado->num_rows === 0) {
-    $nome = "admin";
+    $login = "admin";
     $email = "admin@admin.com";
     $senha = "admin";
     $hash = password_hash($senha, PASSWORD_DEFAULT);

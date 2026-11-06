@@ -1,6 +1,7 @@
 
 <?php
 
+
 require_once __DIR__ . '/proteger.php';
 require_once __DIR__ . '/notificacoes_alertas.php';
 
@@ -21,7 +22,6 @@ require_once __DIR__ . '/notificacoes_alertas.php';
 
 <body>
 
-    <!-- Barra superior -->
     <header class="topbar">
 
         <button
@@ -53,7 +53,6 @@ require_once __DIR__ . '/notificacoes_alertas.php';
 
     </header>
 
-    <!-- Menu lateral -->
     <aside class="sidebar" id="sidebar">
 
         <nav>
@@ -87,15 +86,12 @@ require_once __DIR__ . '/notificacoes_alertas.php';
 
     </aside>
 
-    <!-- Fundo escuro do menu -->
     <div class="overlay" id="overlay"></div>
 
-    <!-- Conteúdo principal -->
     <main class="container">
 
         <h2>Leituras e Alertas</h2>
 
-        <!-- Resumo -->
         <section class="resumo-alertas">
 
     <div class="card-resumo critico">
@@ -117,7 +113,7 @@ require_once __DIR__ . '/notificacoes_alertas.php';
 </section>
 
         <!-- Filtros -->
-        <form method="GET" action="leitura.php" class="filtros">
+        <form method="GET" action="" class="filtros">
 
             <label for="severidade">
                 Severidade
@@ -158,7 +154,7 @@ require_once __DIR__ . '/notificacoes_alertas.php';
 
             <button type="submit">Filtrar</button>
 
-            <a href="leitura.php">Limpar</a>
+            <a href="?">Limpar</a>
 
         </form>
 

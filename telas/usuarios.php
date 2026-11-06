@@ -3,12 +3,39 @@
 require_once __DIR__ . '/proteger.php';
 require_once __DIR__ . '/conexao.php';
 
-if (!isset($pdo) || !($pdo instanceof PDO)) {
-    die("Erro: Conexão PDO não disponível. Verifique o ficheiro conexao.php.");
+if (!isset($conexao) || $conexao->connect_error) {
+    die("Erro: Conexão com o banco não disponível. Verifique o ficheiro conexao.php.");
 }
 
-$stmtUsuarios = $pdo->query("SELECT id_usuario, nome, senha, email, cargo, status FROM usuarios");
-$usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
+$mensagemSucesso = '';
+$mensagemErro = '';
+
+// Lógica para processar a alteração de senha
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'alterar_senha') {
+    $idUsuario = filter_input(INPUT_POST, 'id_usuario', FILTER_VALIDATE_INT);
+    $novaSenha = $_POST['nova_senha'] ?? '';
+
+    if ($idUsuario && !empty(trim($novaSenha))) {
+        // Criptografa a senha antes de guardar no banco
+        $senhaHash = password_hash($novaSenha, PASSWORD_DEFAULT);
+
+        $stmtUpdate = $conexao->prepare("UPDATE usuario SET senha = ? WHERE id_usuario = ?");
+        $stmtUpdate->bind_param('si', $senhaHash, $idUsuario);
+
+        if ($stmtUpdate->execute()) {
+            $mensagemSucesso = "Senha alterada com sucesso!";
+        } else {
+            $mensagemErro = "Erro ao alterar a senha do usuário.";
+        }
+        $stmtUpdate->close();
+    } else {
+        $mensagemErro = "Preencha todos os campos corretamente.";
+    }
+}
+
+// Não é necessário buscar a senha para listar os usuários
+$resUsuarios = $conexao->query("SELECT id_usuario, login, email, cargo, status FROM usuario");
+$usuarios = $resUsuarios ? $resUsuarios->fetch_all(MYSQLI_ASSOC) : [];
 
 ?>
 
@@ -112,9 +139,9 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
       <ul class="user-list">
         <?php foreach ($usuarios as $usuario): ?>
           <li class="user-card">
-            <div class="avatar avatar-placeholder"><?= strtoupper(substr($usuario['nome'], 0, 1)) ?></div>
+            <div class="avatar avatar-placeholder"><?= strtoupper(substr($usuario['login'], 0, 1)) ?></div>
             <div class="user-info">
-              <p><strong>Nome:</strong> <?= htmlspecialchars($usuario['nome']) ?></p>
+              <p><strong>Login:</strong> <?= htmlspecialchars($usuario['login']) ?></p>
               <p><strong>E-mail:</strong> <?= htmlspecialchars($usuario['email']) ?></p>
               <p><strong>Cargo:</strong> <?= htmlspecialchars($usuario['cargo']) ?></p>
               <p class="status-line">
@@ -128,18 +155,6 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
             </div>
           </li>
         <?php endforeach; ?>
-        <!-- <li class="user-card">
-          <div class="avatar avatar-placeholder">R</div>
-          <div class="user-info">
-            <p><strong>Nome:</strong> Rogerio</p>
-            <p><strong>E-mail:</strong> rogerioguedes@gmail.com</p>
-            <p><strong>Cargo:</strong> Admin</p>
-            <p class="status-line">
-              <strong>Status:</strong>
-              <span class="badge badge-green">Ativo</span>
-            </p>
-          </div>
-        </li> -->
         <li
           class="user-card add-card"
           tabindex="0"
@@ -149,7 +164,7 @@ $usuarios = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
             <span class="plus">+</span>
           </div>
           <div class="user-info">
-            <p><strong>Nome:</strong></p>
+            <p><strong>Login:</strong></p>
             <p><strong>E-mail:</strong></p>
             <p><strong>Cargo:</strong></p>
             <p><strong>Status:</strong></p>
