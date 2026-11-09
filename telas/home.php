@@ -119,6 +119,22 @@ require 'conexao.php';
       </a>
 
 
+
+      <a
+        href="dashboard.php"
+        class="side-link">
+
+        <img
+          src="../assets/dashboard.png"
+          alt="">
+
+        <span>
+          Dashboard
+        </span>
+
+      </a>
+
+
     </nav>
 
   </aside>
@@ -160,8 +176,12 @@ require 'conexao.php';
 
         <span>Usuários</span>
       </a>
-    </section>
+      <a href="dashboard.php" class="card">
+        <img src="../assets/dashboard.png" alt="" />
 
+        <span>Dashboard</span>
+      </a>
+    </section>
     <div class="logo-area">
       <img src="../assets/logo.webp" alt="Logo FerroHub" />
     </div>

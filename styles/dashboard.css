@@ -44,7 +44,7 @@ a {
 }
 
 /* =========================
-   BOTÃO MENU (opcional)
+   BOTÃO MENU
 ========================= */
 
 .menu-btn {
@@ -83,7 +83,7 @@ a {
 }
 
 /* =========================
-   SIDEBAR (opcional)
+   SIDEBAR
 ========================= */
 
 .sidebar {
@@ -272,7 +272,6 @@ a {
   padding: 110px 20px 50px;
 }
 
-/* Título opcional: <h2 class="page-title">Dashboard</h2> */
 .page-title {
   text-align: center;
   color: #cceaff;
@@ -353,7 +352,7 @@ a {
 }
 
 .velocidade-valor small {
-  font-size: 1.5rem !important;
+  font-size: 1.5rem;
   color: #003459;
   opacity: 0.8;
 }

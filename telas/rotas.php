@@ -216,78 +216,110 @@ $resultado_trem = $conexao->query('
 
 
     <aside
-        class="sidebar"
-        id="sidebar">
+    class="sidebar"
+    id="sidebar">
 
-        <nav>
-
-            <a
-                href="locomotivas.php"
-                class="side-link">
-
-                <img
-                    src="../assets/locomotiva.png"
-                    alt="" />
-
-                <span>Locomotivas</span>
-
-            </a>
+    <nav>
 
 
-            <a
-                href="relatorios.php"
-                class="side-link">
+      <a
+        href="locomotivas.php"
+        class="side-link">
 
-                <img
-                    src="../assets/relatorio.webp"
-                    alt="" />
+        <img
+          src="../assets/locomotiva.png"
+          alt="">
 
-                <span>Relatórios</span>
+        <span>
+          Locomotivas
+        </span>
 
-            </a>
-
-
-            <a
-                href="sensores.php"
-                class="side-link">
-
-                <img
-                    src="../assets/sensores.webp"
-                    alt="" />
-
-                <span>Sensores</span>
-
-            </a>
+      </a>
 
 
-            <a
-                href="rotas.php"
-                class="side-link">
 
-                <img
-                    src="../assets/rotas.png"
-                    alt="" />
+      <a
+        href="relatorios.php"
+        class="side-link">
 
-                <span>Rotas</span>
+        <img
+          src="../assets/relatorio.webp"
+          alt="">
 
-            </a>
+        <span>
+          Relatórios
+        </span>
+
+      </a>
 
 
-            <a
-                href="usuarios.php"
-                class="side-link">
 
-                <img
-                    src="../assets/usuarios.png"
-                    alt="" />
+      <a
+        href="sensores.php"
+        class="side-link">
 
-                <span>Usuários</span>
+        <img
+          src="../assets/sensores.webp"
+          alt="">
 
-            </a>
+        <span>
+          Sensores
+        </span>
 
-        </nav>
+      </a>
 
-    </aside>
+
+
+      <a
+        href="rotas.php"
+        class="side-link">
+
+        <img
+          src="../assets/rotas.png"
+          alt="">
+
+        <span>
+          Rotas
+        </span>
+
+      </a>
+
+
+
+      <a
+        href="usuarios.php"
+        class="side-link">
+
+        <img
+          src="../assets/usuarios.png"
+          alt="">
+
+        <span>
+          Usuários
+        </span>
+
+      </a>
+
+
+
+      <a
+        href="dashboard.php"
+        class="side-link">
+
+        <img
+          src="../assets/dashboard.png"
+          alt="">
+
+        <span>
+          Dashboard
+        </span>
+
+      </a>
+
+
+    </nav>
+
+  </aside>
 
 
 

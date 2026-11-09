@@ -181,6 +181,22 @@ $resultado = $conexao->query('
       </a>
 
 
+
+      <a
+        href="dashboard.php"
+        class="side-link">
+
+        <img
+          src="../assets/dashboard.png"
+          alt="">
+
+        <span>
+          Dashboard
+        </span>
+
+      </a>
+
+
     </nav>
 
   </aside>
