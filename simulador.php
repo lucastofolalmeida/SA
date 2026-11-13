@@ -1,4 +1,3 @@
-
 <?php
 
 require_once 'proteger.php';
@@ -17,8 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erros[] = 'Selecione um sensor válido.';
     }
 
-    if ($quantidade === false || $quantidade === null
-        || $quantidade < 1 || $quantidade > 200) {
+    if (
+        $quantidade === false || $quantidade === null
+        || $quantidade < 1 || $quantidade > 200
+    ) {
         $erros[] = 'Informe uma quantidade entre 1 e 200.';
     }
 
@@ -89,15 +90,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     switch ($tipo) {
                         case 'velocidade':
-                            $velocidade = rand(0, 11000) / 100;
+                            $velocidade = rand(0, 20000) / 100;
                             break;
 
                         case 'temperatura':
-                            $temperatura = rand(6000, 12000) / 100;
+                            $temperatura = rand(6000, 22000) / 100;
                             break;
 
                         case 'vibracao':
-                            $vibracao = rand(50, 1200) / 100;
+                            $vibracao = rand(50, 1600) / 100;
                             break;
                     }
 
@@ -124,13 +125,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $conexao->commit();
 
+                $bancoAtual = $conexao->query(
+                    "SELECT DATABASE() AS banco"
+                )->fetch_assoc()['banco'];
+
                 $_SESSION['mensagem'] =
-                    $quantidade . ' leituras salvas com sucesso para o sensor '
-                    . $sensor['nome'] . '.';
-
-                header('Location: simulador.php');
+                    'TESTE DO SIMULADOR'
+                    . ' | Arquivo: ' . __FILE__
+                    . ' | Banco: ' . $bancoAtual
+                    . ' | Sensor: ' . $tipo
+                    . ' | Temperatura enviada: ' . $temperatura;
                 exit;
-
             } catch (Throwable $e) {
                 $conexao->rollback();
                 throw $e;
@@ -138,7 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmtInsert->close();
                 $stmtUpdate->close();
             }
-
         } catch (Throwable $e) {
             error_log('Erro no simulador: ' . $e->getMessage());
             $erros[] = 'Não foi possível salvar as leituras. '
@@ -174,99 +178,100 @@ $trens = $conexao->query($sqlSensores);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de sensores</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header>
-    <span class="marca">Frota Ferroviária</span>
-    <nav>
-        <a href="trens.php">Trens</a>
-        <a href="painel.php">Painel</a>
-        <a href="leituras.php">Leituras</a>
-        <a href="simulador.php">Simulador</a>
-        <a href="relatorios.php">Relatórios</a>
-        <a href="logout.php">Sair</a>
-    </nav>
-</header>
+    <header>
+        <span class="marca">Frota Ferroviária</span>
+        <nav>
+            <a href="trens.php">Trens</a>
+            <a href="painel.php">Painel</a>
+            <a href="leituras.php">Leituras</a>
+            <a href="simulador.php">Simulador</a>
+            <a href="relatorios.php">Relatórios</a>
+            <a href="logout.php">Sair</a>
+        </nav>
+    </header>
 
-<main>
-    <h1>Simulador de sensores IoT</h1>
+    <main>
+        <h1>Simulador de sensores IoT</h1>
 
-    <p class="apoio">
-        Gere leituras simuladas a cada cinco minutos para um sensor
-        instalado em uma locomotiva ou associado a uma rota.
-    </p>
-
-    <?php if ($mensagem !== ''): ?>
-        <p class="aviso">
-            <?= htmlspecialchars($mensagem, ENT_QUOTES, 'UTF-8') ?>
+        <p class="apoio">
+            Gere leituras simuladas a cada cinco minutos para um sensor
+            instalado em uma locomotiva ou associado a uma rota.
         </p>
-    <?php endif; ?>
 
-    <?php if ($erros): ?>
-        <div class="aviso aviso-erro">
-            <ul>
-                <?php foreach ($erros as $erro): ?>
-                    <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    <?php endif; ?>
+        <?php if ($mensagem !== ''): ?>
+            <p class="aviso">
+                <?= htmlspecialchars($mensagem, ENT_QUOTES, 'UTF-8') ?>
+            </p>
+        <?php endif; ?>
 
-    <form method="post" class="formulario">
-        <div class="linha">
-            <div class="campo">
-                <label for="id_sensor">Sensor</label>
+        <?php if ($erros): ?>
+            <div class="aviso aviso-erro">
+                <ul>
+                    <?php foreach ($erros as $erro): ?>
+                        <li><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
 
-                <select id="id_sensor" name="id_sensor" required>
-                    <option value="">Selecione um sensor</option>
+        <form method="post" class="formulario">
+            <div class="linha">
+                <div class="campo">
+                    <label for="id_sensor">Sensor</label>
 
-                    <?php while ($sensorLista = $trens->fetch_assoc()): ?>
-                        <option
-                            value="<?= (int) $sensorLista['id_sensor'] ?>"
-                            <?= isset($sensorId) && (int) $sensorId === (int) $sensorLista['id_sensor'] ? 'selected' : '' ?>
-                        >
-                            <?= htmlspecialchars($sensorLista['nome'], ENT_QUOTES, 'UTF-8') ?>
-                            — <?= htmlspecialchars($sensorLista['tipo'], ENT_QUOTES, 'UTF-8') ?>
-                            — <?= htmlspecialchars($sensorLista['local'] ?? 'Local não informado', ENT_QUOTES, 'UTF-8') ?>
-                            <?php if ($sensorLista['id_trem'] !== null): ?>
-                                — <?= htmlspecialchars($sensorLista['prefixo'] ?? $sensorLista['modelo'] ?? 'Trem', ENT_QUOTES, 'UTF-8') ?>
-                            <?php elseif ($sensorLista['id_rota'] !== null): ?>
-                                — Rota <?= (int) $sensorLista['id_rota'] ?>
-                                (<?= htmlspecialchars($sensorLista['origem'] ?? '', ENT_QUOTES, 'UTF-8') ?>
-                                - <?= htmlspecialchars($sensorLista['destino'] ?? '', ENT_QUOTES, 'UTF-8') ?>)
-                            <?php endif; ?>
-                        </option>
-                    <?php endwhile; ?>
-                </select>
+                    <select id="id_sensor" name="id_sensor" required>
+                        <option value="">Selecione um sensor</option>
+
+                        <?php while ($sensorLista = $trens->fetch_assoc()): ?>
+                            <option
+                                value="<?= (int) $sensorLista['id_sensor'] ?>"
+                                <?= isset($sensorId) && (int) $sensorId === (int) $sensorLista['id_sensor'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($sensorLista['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                — <?= htmlspecialchars($sensorLista['tipo'], ENT_QUOTES, 'UTF-8') ?>
+                                — <?= htmlspecialchars($sensorLista['local'] ?? 'Local não informado', ENT_QUOTES, 'UTF-8') ?>
+                                <?php if ($sensorLista['id_trem'] !== null): ?>
+                                    — <?= htmlspecialchars($sensorLista['prefixo'] ?? $sensorLista['modelo'] ?? 'Trem', ENT_QUOTES, 'UTF-8') ?>
+                                <?php elseif ($sensorLista['id_rota'] !== null): ?>
+                                    — Rota <?= (int) $sensorLista['id_rota'] ?>
+                                    (<?= htmlspecialchars($sensorLista['origem'] ?? '', ENT_QUOTES, 'UTF-8') ?>
+                                    - <?= htmlspecialchars($sensorLista['destino'] ?? '', ENT_QUOTES, 'UTF-8') ?>)
+                                <?php endif; ?>
+                            </option>
+                        <?php endwhile; ?>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="quantidade">Quantidade de leituras</label>
+                    <input
+                        type="number"
+                        id="quantidade"
+                        name="quantidade"
+                        min="1"
+                        max="200"
+                        value="<?= isset($quantidade) && $quantidade >= 1 && $quantidade <= 200 ? (int) $quantidade : 50 ?>"
+                        required>
+                </div>
             </div>
 
-            <div class="campo">
-                <label for="quantidade">Quantidade de leituras</label>
-                <input
-                    type="number"
-                    id="quantidade"
-                    name="quantidade"
-                    min="1"
-                    max="200"
-                    value="<?= isset($quantidade) && $quantidade >= 1 && $quantidade <= 200 ? (int) $quantidade : 50 ?>"
-                    required
-                >
+            <div class="acoes">
+                <button type="submit" class="botao botao-primario">
+                    Gerar leituras
+                </button>
             </div>
-        </div>
-
-        <div class="acoes">
-            <button type="submit" class="botao botao-primario">
-                Gerar leituras
-            </button>
-        </div>
-    </form>
-</main>
+        </form>
+    </main>
 
 </body>
+
 </html>

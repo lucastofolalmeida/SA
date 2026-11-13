@@ -208,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 $velocidade = rand(0, 11000) / 100;
                                 break;
                             case 'temperatura':
-                                $temperatura = rand(6000, 12000) / 100;
+                                $temperatura = rand(6000, 22000) / 100;
                                 break;
                             case 'vibracao':
                                 $vibracao = rand(50, 1200) / 100;
@@ -302,110 +302,110 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
 
     <aside
-    class="sidebar"
-    id="sidebar">
+        class="sidebar"
+        id="sidebar">
 
-    <nav>
-
-
-      <a
-        href="locomotivas.php"
-        class="side-link">
-
-        <img
-          src="../assets/locomotiva.png"
-          alt="">
-
-        <span>
-          Locomotivas
-        </span>
-
-      </a>
+        <nav>
 
 
+            <a
+                href="locomotivas.php"
+                class="side-link">
 
-      <a
-        href="relatorios.php"
-        class="side-link">
+                <img
+                    src="../assets/locomotiva.png"
+                    alt="">
 
-        <img
-          src="../assets/relatorio.webp"
-          alt="">
+                <span>
+                    Locomotivas
+                </span>
 
-        <span>
-          Relatórios
-        </span>
-
-      </a>
+            </a>
 
 
 
-      <a
-        href="sensores.php"
-        class="side-link">
+            <a
+                href="relatorios.php"
+                class="side-link">
 
-        <img
-          src="../assets/sensores.webp"
-          alt="">
+                <img
+                    src="../assets/relatorio.webp"
+                    alt="">
 
-        <span>
-          Sensores
-        </span>
+                <span>
+                    Relatórios
+                </span>
 
-      </a>
-
-
-
-      <a
-        href="rotas.php"
-        class="side-link">
-
-        <img
-          src="../assets/rotas.png"
-          alt="">
-
-        <span>
-          Rotas
-        </span>
-
-      </a>
+            </a>
 
 
 
-      <a
-        href="usuarios.php"
-        class="side-link">
+            <a
+                href="sensores.php"
+                class="side-link">
 
-        <img
-          src="../assets/usuarios.png"
-          alt="">
+                <img
+                    src="../assets/sensores.webp"
+                    alt="">
 
-        <span>
-          Usuários
-        </span>
+                <span>
+                    Sensores
+                </span>
 
-      </a>
-
-
-
-      <a
-        href="dashboard.php"
-        class="side-link">
-
-        <img
-          src="../assets/dashboard.png"
-          alt="">
-
-        <span>
-          Dashboard
-        </span>
-
-      </a>
+            </a>
 
 
-    </nav>
 
-  </aside>
+            <a
+                href="rotas.php"
+                class="side-link">
+
+                <img
+                    src="../assets/rotas.png"
+                    alt="">
+
+                <span>
+                    Rotas
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="usuarios.php"
+                class="side-link">
+
+                <img
+                    src="../assets/usuarios.png"
+                    alt="">
+
+                <span>
+                    Usuários
+                </span>
+
+            </a>
+
+
+
+            <a
+                href="dashboard.php"
+                class="side-link">
+
+                <img
+                    src="../assets/dashboard.png"
+                    alt="">
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+        </nav>
+
+    </aside>
     <div class="overlay" id="overlay"></div>
 
     <main>

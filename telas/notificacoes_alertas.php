@@ -105,7 +105,7 @@ while ($leitura = $consulta->fetch_assoc()) {
         continue;
     }
 
-    $severidade = $valor > 2 * $limite
+    $severidade = $valor > 1.5 * $limite
         ? 'critica'
         : 'atencao';
 
